@@ -9,30 +9,38 @@ import { AlunoService } from './aluno.service';
    styleUrls: ['./alunos.component.css']
  })
 
- export class AlunosComponent implements OnInit {
-    constructor(private alunoService: AlunoService) {}
+export class AlunosComponent implements OnInit
+{
+  aluno: Aluno = new Aluno();
+  alunos: Aluno[] = [];
+  cpfduplicado: boolean = false;
 
-    aluno: Aluno = new Aluno();
-    alunos: Aluno[] = [];
-    cpfduplicado: boolean = false;
+  constructor(private alunoService: AlunoService) {}
 
-    criarAluno(a: Aluno): void 
-    {
-        if (this.alunoService.criar(a)) {
-            this.alunos.push(a);
-            this.aluno = new Aluno();
-        } 
-        else 
-        {
-            this.cpfduplicado = true;
-        }
-    }
-
-    onMove(): void {
-       this.cpfduplicado = false;
-    }
-
-    ngOnInit(): void {
-      this.alunos = this.alunoService.getAlunos();
-    }
+    criarAluno(a: Aluno): void {
+      this.alunoService.criar(a)
+            .subscribe(
+              ar => {
+                if (ar) {
+                  this.alunos.push(ar);
+                  this.aluno = new Aluno();
+                } else {
+                  this.cpfduplicado = true;
+                } 
+              },
+              msg => { alert(msg.message); }
+            );
   } 
+
+  onMove(): void {
+      this.cpfduplicado = false;
+  }
+
+  ngOnInit(): void {
+    this.alunoService.getAlunos()
+          .subscribe(
+            as => { this.alunos = as; },
+            msg => { alert(msg.message); }
+          );
+  }
+}
