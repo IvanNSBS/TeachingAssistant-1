@@ -23,18 +23,17 @@ taserver.get('/alunos', function (req: express.Request, res: express.Response) {
 })
 
 taserver.post('/aluno', function (req: express.Request, res: express.Response) {
-  var aluno: Aluno = <Aluno> req.body; //verificar se � mesmo Aluno!
+  var aluno: Aluno = <Aluno> req.body; //verificar se é mesmo Aluno!
   aluno = cadastro.cadastrar(aluno);
   if (aluno) {
     res.send({"success": "O aluno foi cadastrado com sucesso"});
   } else {
-    res.send({"failure": "O aluno nao pode ser cadastrado"});
+    res.send({"failure": "O aluno não pode ser cadastrado"});
   }
 })
 
 taserver.put('/aluno', function (req: express.Request, res: express.Response) {
   var aluno: Aluno = <Aluno> req.body;
-  console.log("SERVER IS UPDATING ALUNO WITH CPF: " + aluno.cpf);
   aluno = cadastro.atualizar(aluno);
   if (aluno) {
     res.send({"success": "O aluno foi atualizado com sucesso"});
@@ -56,6 +55,12 @@ taserver.delete('/aluno/:cpf', function(req: express.Request, res: express.Respo
     res.send({"failure": "Aluno não encontrado"})
 })
 
-taserver.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+var server = taserver.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
 })
+
+function closeServer(): void {
+  server.close();
+}
+
+export { server, closeServer }
