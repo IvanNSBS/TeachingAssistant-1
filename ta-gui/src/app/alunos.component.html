@@ -19,8 +19,7 @@
     <td><input [(ngModel)]="aluno.email" ></td>
  </tr>
  </table>
-
-   <div *ngIf="cpfOuLoginDuplicado">
+   <div name="msgcpfexistente" *ngIf="cpfOuLoginDuplicado">
       Um aluno já foi cadastrado com esse Login ou CPF
    </div>
 
