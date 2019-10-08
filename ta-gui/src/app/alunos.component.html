@@ -3,7 +3,7 @@
    <table>
  <tr>
     <td><label>Nome </label></td>
-    <td><input [(ngModel)]="aluno.nome" ></td>
+    <td><input [(ngModel)]="aluno.nome" name="namebox"></td>
     <td><button (click)="criarAluno(aluno)">Adicionar</button></td>
  </tr>
  <tr>
@@ -12,7 +12,7 @@
 </tr>
  <tr>
     <td><label>CPF </label></td>
-    <td><input [(ngModel)]="aluno.cpf" ></td>
+    <td><input [(ngModel)]="aluno.cpf" name="cpfbox"></td>
  </tr>
  <tr>
     <td><label>e-mail </label></td>
@@ -31,10 +31,10 @@
    <th>CPF</th>
     <th>e-mail</th>
  </tr>
- <tr *ngFor="let a of alunos">
-   <td>{{a.nome}}</td>
+ <tr *ngFor="let a of alunos" name="alunolist">
+   <td name="nomelist">{{a.nome}}</td>
    <td>{{a.githubLogin}}</td>
-   <td>{{a.cpf}}</td>
+   <td name="cpflist">{{a.cpf}}</td>
    <td>{{a.email}}</td>
    <td><button (click)=deletarAluno(a)>Deletar</button></td>
  </tr>
