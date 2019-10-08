@@ -24,7 +24,7 @@ describe("O servidor", () => {
     var options:any = {method: 'POST', uri: (base_url + "aluno"), body:{name: "Mari", cpf: "962"}, json: true};
     return request(options)
              .then(body =>
-                expect(body).toEqual({failure: "O aluno não pode ser cadastrado"})
+                expect(body).toEqual({"failure": "O aluno não pode ser cadastrado"})
              ).catch(e =>
                 expect(e).toEqual(null)
              )

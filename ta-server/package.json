@@ -4,8 +4,8 @@
   "description": "Servidor do teaching assistant",
   "main": "ta-server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "./node_modules/typescript/bin/tsc",
+    "test": "npm run tsc && jasmine --config=./spec/jasmine.json",
+    "tsc": "node ./node_modules/typescript/bin/tsc",
     "start": "npx nodemon --exec ts-node --files ta-server.ts"
   },
   "author": "Paulo Borba",
@@ -17,11 +17,14 @@
     "express": "^4.15.4"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7",
-    "ts-node": "^10.0.0",
+    "@types/jasmine": "^2.8.9",
+    "@types/request-promise": "^4.1.38",
+    "jasmine": "^2.99.0",
     "jasmine-promises": "^0.4.1",
+    "nodemon": "^2.0.7",
     "request": "^2.34",
     "request-promise": "^4.2.2",
-    "@types/request-promise": "^4.1.38"
+    "ts-node": "^10.1.0",
+    "typescript": "~3.5.3"
   }
 }
