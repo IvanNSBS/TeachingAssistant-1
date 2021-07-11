@@ -8,13 +8,16 @@ import { AlunoService } from './aluno.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = "ta-gui";
   aluno: Aluno = {nome: "", githubLogin: "", cpf: "", email: ""};
   alunoService = new AlunoService();
+  alunos: Aluno[] = [];
 
   gravar(a: Aluno): void {
     this.alunoService.gravar(a);
+    this.alunos.push(a);
     this.aluno = {nome: "", githubLogin: "", cpf: "", email: ""};
- }
+  }
 }
