@@ -8,16 +8,18 @@ import { NgModule } from '@angular/core';
 })
 export class AppComponent {
   title = "ta-gui";
-  aluno: Aluno = {nome: "", cpf: "", email: ""};
+  aluno: Aluno = {nome: "", githubLogin: "", cpf: "", email: ""};
 }
 
 export class Aluno {
   nome: string;
+  githubLogin: string;
   cpf: string;
   email: string;
 
-  constructor(nome: string, cpf: string, email: string){
+  constructor(nome: string, githubLogin: string, cpf: string, email: string){
     this.nome = nome;
+    this.githubLogin = githubLogin;
     this.cpf = cpf;
     this.email = email;
   }
