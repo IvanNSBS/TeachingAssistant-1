@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NgModule } from '@angular/core';
+import { Aluno } from "./aluno";
+import { AlunoService } from './aluno.service';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +11,10 @@ import { NgModule } from '@angular/core';
 export class AppComponent {
   title = "ta-gui";
   aluno: Aluno = {nome: "", githubLogin: "", cpf: "", email: ""};
-}
+  alunoService = new AlunoService();
 
-export class Aluno {
-  nome: string;
-  githubLogin: string;
-  cpf: string;
-  email: string;
-
-  constructor(nome: string, githubLogin: string, cpf: string, email: string){
-    this.nome = nome;
-    this.githubLogin = githubLogin;
-    this.cpf = cpf;
-    this.email = email;
-  }
+  gravar(a: Aluno): void {
+    this.alunoService.gravar(a);
+    this.aluno = {nome: "", githubLogin: "", cpf: "", email: ""};
+ }
 }
