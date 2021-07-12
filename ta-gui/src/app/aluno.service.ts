@@ -22,9 +22,16 @@ export class AlunoService {
     for (let a of this.alunos) {
         if (a.cpf == aluno.cpf) {
            a.metas = aluno.metas;
-           console.log("new metas:" + a.metas)
         }
     }
+  }
+
+  getAlunos(): Aluno[] {
+    var result: Aluno[] = [];
+    for (let a of this.alunos) {
+      result.push(a.clone());
+    }
+    return result;
   }
 
   cpfNaoCadastrado(cpf: string): boolean {

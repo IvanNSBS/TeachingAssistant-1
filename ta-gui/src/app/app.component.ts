@@ -31,8 +31,4 @@ export class AppComponent {
   onMove(): void {
     this.cpfCollision = false;
   }
-
-  atualizarAluno(aluno: Aluno): void {
-    this.alunoService.atualizar(aluno);
-  }
 }
