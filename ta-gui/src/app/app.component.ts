@@ -24,6 +24,7 @@ export class AppComponent {
     else 
     {
       this.aluno.cpf = "";
+      alert("Já existe um aluno com esse CPF");
     }
   }
 }
