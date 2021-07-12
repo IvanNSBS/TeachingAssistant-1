@@ -34,11 +34,12 @@ taserver.post('/aluno', function (req: express.Request, res: express.Response) {
 
 taserver.put('/aluno', function (req: express.Request, res: express.Response) {
   var aluno: Aluno = <Aluno> req.body;
+  console.log("SERVER IS UPDATING ALUNO WITH CPF: " + aluno.cpf);
   aluno = cadastro.atualizar(aluno);
   if (aluno) {
     res.send({"success": "O aluno foi atualizado com sucesso"});
   } else {
-    res.send({"failure": "O aluno n�o pode ser atualizado"});
+    res.send({"failure": "O aluno nao pode ser atualizado"});
   }
 })
 

@@ -27,14 +27,15 @@ export class Aluno {
     this.email = from.email;
     this.copyMetasFrom(from.metas);
   }
+  
+  metasAccess(key: string, value: string): void{
+    this.metas.set(key, value);
+  }
 
   copyMetasFrom(from: Map<string,string>): void {
     this.metas = new Map<string,string>();
     for (let key in from) {
-      const value = from.get(key);
-      if(value === undefined || value == null) continue;
-      
-      this.metas.set(key, value);
+      this.metas[key] = from[key];
     }
   }
 }
