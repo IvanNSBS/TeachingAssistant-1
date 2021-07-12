@@ -13,7 +13,7 @@ export class AlunosComponent implements OnInit
 {
   aluno: Aluno = new Aluno();
   alunos: Aluno[] = [];
-  cpfduplicado: boolean = false;
+  cpfOuLoginDuplicado: boolean = false;
 
   constructor(private alunoService: AlunoService) {}
 
@@ -24,8 +24,9 @@ export class AlunosComponent implements OnInit
               if (ar) {
                 this.alunos.push(ar);
                 this.aluno = new Aluno();
-              } else {
-                this.cpfduplicado = true;
+              } 
+              else if(ar == null ){
+                this.cpfOuLoginDuplicado = true;
               } 
             },
             msg => { alert(msg.message); }
@@ -33,7 +34,7 @@ export class AlunosComponent implements OnInit
   } 
 
   onMove(): void {
-      this.cpfduplicado = false;
+    this.cpfOuLoginDuplicado = false;
   }
 
   ngOnInit(): void {
