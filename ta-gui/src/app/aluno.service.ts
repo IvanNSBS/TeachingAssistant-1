@@ -22,7 +22,8 @@ export class AlunoService {
   }
 
   atualizar(aluno: Aluno): Observable<Aluno | null> {
-    return this.http.put<any>(this.taURL + "/aluno",JSON.stringify(aluno), {headers: this.headers})          .pipe( 
+    return this.http.put<any>(this.taURL + "/aluno",JSON.stringify(aluno), {headers: this.headers})
+              .pipe( 
                 retry(2),
                 map( res => {if (res.success) {return aluno;} else {return null;}} )
               ); 
