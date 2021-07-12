@@ -10,17 +10,17 @@ import { AlunoService } from './aluno.service';
 })
 
 export class AppComponent {
+  constructor(private alunoService: AlunoService){}
   title = "ta-gui";
-  aluno: Aluno = {nome: "", githubLogin: "", cpf: "", email: ""};
-  alunoService = new AlunoService();
+  aluno: Aluno = new Aluno();
   alunos: Aluno[] = [];
   cpfCollision: boolean = false;
 
-  gravar(a: Aluno): void {
-    if (this.alunoService.gravar(a)) 
+  criarAluno(a: Aluno): void {
+    if (this.alunoService.criar(a)) 
     {
       this.alunos.push(a);
-      this.aluno = {nome: "", githubLogin: "", cpf: "", email: ""};
+      this.aluno = new Aluno();
     } 
     else 
     {
@@ -30,5 +30,9 @@ export class AppComponent {
 
   onMove(): void {
     this.cpfCollision = false;
+  }
+
+  atualizarAluno(aluno: Aluno): void {
+    this.alunoService.atualizar(aluno);
   }
 }

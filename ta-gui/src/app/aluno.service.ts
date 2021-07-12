@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 export class AlunoService {
   alunos: Aluno[] = [];
 
-  gravar(aluno: Aluno): Aluno | null {
+  criar(aluno: Aluno): Aluno | null {
+    aluno = aluno.clone();
     var result = null;
     
     if (this.cpfNaoCadastrado(aluno.cpf)) {
@@ -14,6 +15,16 @@ export class AlunoService {
     }
 
     return result;
+  }
+
+  atualizar(aluno:Aluno): void {
+    aluno = aluno.clone();
+    for (let a of this.alunos) {
+        if (a.cpf == aluno.cpf) {
+           a.metas = aluno.metas;
+           console.log("new metas:" + a.metas)
+        }
+    }
   }
 
   cpfNaoCadastrado(cpf: string): boolean {
