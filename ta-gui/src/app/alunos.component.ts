@@ -17,19 +17,19 @@ export class AlunosComponent implements OnInit
 
   constructor(private alunoService: AlunoService) {}
 
-    criarAluno(a: Aluno): void {
-      this.alunoService.criar(a)
-            .subscribe(
-              ar => {
-                if (ar) {
-                  this.alunos.push(ar);
-                  this.aluno = new Aluno();
-                } else {
-                  this.cpfduplicado = true;
-                } 
-              },
-              msg => { alert(msg.message); }
-            );
+  criarAluno(a: Aluno): void {
+    this.alunoService.criar(a)
+          .subscribe(
+            ar => {
+              if (ar) {
+                this.alunos.push(ar);
+                this.aluno = new Aluno();
+              } else {
+                this.cpfduplicado = true;
+              } 
+            },
+            msg => { alert(msg.message); }
+          );
   } 
 
   onMove(): void {

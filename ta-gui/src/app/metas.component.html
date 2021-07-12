@@ -10,7 +10,9 @@
        <td>{{a.nome}}</td>
        <td>{{a.cpf}}</td>
        <td>{{a.email}}</td>
-       <td class="meta"><input [ngModel]="a.metas.get('requisitos')" (change)="atualizarAluno(a)"></td>
-       <td class="meta"><input [ngModel]="a.metas.get('gerDeConfiguracao')" (change)="atualizarAluno(a)"></td>
+
+       <!-- Bugged here. Not writing yet -->
+       <td class="meta"><input ([ngModel])="a.metas.get('requisitos')" (change)="atualizarAluno(a)"></td>
+       <td class="meta"><input ([ngModel])="a.metas.get('gerDeConfiguracao')" (change)="atualizarAluno(a)"></td>
     </tr>
 </table>

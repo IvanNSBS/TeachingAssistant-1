@@ -13,9 +13,9 @@ var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 }
-taserver.use(allowCrossDomain);
 
 var taserver: express.Application = express();
+taserver.use(allowCrossDomain);
 taserver.use(bodyParser.json());
 
 taserver.get('/alunos', function (req: express.Request, res: express.Response) {
@@ -28,7 +28,7 @@ taserver.post('/aluno', function (req: express.Request, res: express.Response) {
   if (aluno) {
     res.send({"success": "O aluno foi cadastrado com sucesso"});
   } else {
-    res.send({"failure": "O aluno n�o pode ser cadastrado"});
+    res.send({"failure": "O aluno nao pode ser cadastrado"});
   }
 })
 
