@@ -14,6 +14,7 @@ export class AppComponent {
   aluno: Aluno = {nome: "", githubLogin: "", cpf: "", email: ""};
   alunoService = new AlunoService();
   alunos: Aluno[] = [];
+  cpfCollision: boolean = false;
 
   gravar(a: Aluno): void {
     if (this.alunoService.gravar(a)) 
@@ -23,8 +24,11 @@ export class AppComponent {
     } 
     else 
     {
-      this.aluno.cpf = "";
-      alert("Já existe um aluno com esse CPF");
+      this.cpfCollision = true;
     }
+  }
+
+  onMove(): void {
+    this.cpfCollision = false;
   }
 }
