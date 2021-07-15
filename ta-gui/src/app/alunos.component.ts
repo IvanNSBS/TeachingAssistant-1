@@ -33,6 +33,13 @@ export class AlunosComponent implements OnInit
           );
   } 
 
+  deletarAluno(a: Aluno): void{
+    this.alunoService.deletar(a.cpf).subscribe(
+      as => { this.alunos = this.alunos.filter(aluno => a.cpf != aluno.cpf); },
+      msg => { alert(msg.message); }
+    );
+  }
+
   onMove(): void {
     this.cpfOuLoginDuplicado = false;
   }
@@ -43,5 +50,6 @@ export class AlunosComponent implements OnInit
             as => { this.alunos = as; },
             msg => { alert(msg.message); }
           );
+
   }
 }
