@@ -51,7 +51,7 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     Given(/^I can see a student with CPF "(\d*)" in the students list$/, async (cpf) => {
         await criarAluno("Clarissa",cpf);
-        await assertElementsWithSameCPF(1,cpf); 
+        await assertElementsWithSameCPFAndName(1,cpf, "Clarissa"); 
     });
 
     Then(/^I cannot see "([^\"]*)" with CPF "(\d*)" in the students list$/, async (name, cpf) => {
@@ -61,5 +61,17 @@ defineSupportCode(function ({ Given, When, Then }) {
     Then(/^I can see an error message$/, async () => {
         var allmsgs : ElementArrayFinder = element.all(by.name('msgcpfexistente'));
         await assertTamanhoEqual(allmsgs,1);
+    });
+
+    When(/^I click on remove on the student with CPF "(\d*)"$/, async (cpf) => {
+        var allalunos : ElementArrayFinder = element.all(by.name('alunolist'));
+        var samecpfs = allalunos.filter(elem => sameCPF(elem,cpf));
+        var deleteBtn = samecpfs.get(0).element(by.name('deletelist'))
+
+        await deleteBtn.click();
+    });
+
+    Then(/^I can no longer see a student with CPF "(\d*)" in the students list$/, async (cpf) => {
+        await assertElementsWithSameCPF(0, cpf);
     });
 })
