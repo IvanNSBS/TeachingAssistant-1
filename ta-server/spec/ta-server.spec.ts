@@ -30,7 +30,6 @@ describe("O servidor", () => {
              )
   });
 
-
   it("não cadastra alunos com CPF duplicado", () => {
     var aluno1 = {"json":{"nome": "Mari", "cpf" : "965", "email":""}};
     var aluno2 = {"json":{"nome": "Pedro", "cpf" : "965", "email":""}};
@@ -52,7 +51,35 @@ describe("O servidor", () => {
               })
               .catch(err => {
                  expect(err).toEqual(null)
-              });
+              });            
  })
 
+
+ it("Remove aluno corretamente", () => {
+   var aluno1 = {"json":{"nome": "Mari", "cpf" : "9999", "email":""}};
+
+   return request.post(base_url + "aluno", aluno1)
+            .then(body => {
+               expect(body).toEqual({success: "O aluno foi cadastrado com sucesso"});
+               return request.delete(base_url + "aluno/9999")
+                  .then(body => {
+                     expect(body).toEqual("O aluno foi deletado com sucesso");
+                  })
+            })
+            .catch(err => {
+               expect(err).toEqual(null)
+            }); 
+ })  
+
+
+ it("Tentar remover aluno que não existe falha", () => {
+   return request.delete(base_url + "aluno/9916399")
+      .then(body => {
+         expect(body).toEqual("O aluno nao pode ser deletado");
+      })
+   .catch(err => {
+      expect(err).toEqual(null)
+   }); 
+ })
+ 
 })

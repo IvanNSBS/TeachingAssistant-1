@@ -36,7 +36,7 @@ taserver.put('/aluno', function (req: express.Request, res: express.Response) {
   var aluno: Aluno = <Aluno> req.body;
   aluno = cadastro.atualizar(aluno);
   if (aluno) {
-    res.send({"success": "O aluno foi atualizado com sucesso"});
+    res.send("object deleted");
   } 
   else {
     res.send({"failure": "O aluno nao pode ser atualizado"});
@@ -47,12 +47,12 @@ taserver.delete('/aluno/:cpf', function(req: express.Request, res: express.Respo
   var cpf = req.params.cpf;
   let deleted = cadastro.remover(cpf);
 
-  console.log("Delete Success? " + deleted)
-
-  if(deleted)
-    res.send({"status": deleted})
-  else
-    res.send({"failure": "Aluno não encontrado"})
+  if (deleted) {
+    res.send("O aluno foi deletado com sucesso");
+  } 
+  else {
+    res.send("O aluno nao pode ser deletado");
+  }
 })
 
 var server = taserver.listen(3000, function () {
