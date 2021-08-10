@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { retry, map } from 'rxjs/operators';
 
-import { Aluno } from '../../../common/aluno';
+import { Aluno } from '../../../../common/aluno';
 import { Injectable } from '@angular/core';
 
 @Injectable()

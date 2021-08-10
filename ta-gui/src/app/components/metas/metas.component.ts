@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
 
-import { Aluno } from '../../../common/aluno';
-import { AlunoService } from './aluno.service';
+import { Aluno } from '../../../../../common/aluno';
+import { AlunoService } from '../../services/aluno.service';
 
 @Component({
    selector: 'metas',

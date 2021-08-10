@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule }   from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AlunoService } from './aluno.service';
-import { MetasComponent } from './metas.component';
-import { AlunosComponent } from './alunos.component';
+import { AppRoutingModule } from './components/app/app-routing.module';
+import { AppComponent } from './components/app/app.component';
+import { AlunoService } from './services/aluno.service';
+import { MetasComponent } from './components/metas/metas.component';
+import { AlunosComponent } from './components/aluno/alunos.component';
 
 @NgModule({
   declarations: [
