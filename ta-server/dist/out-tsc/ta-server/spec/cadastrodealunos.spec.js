@@ -10,6 +10,9 @@ describe("O cadastro de alunos", () => {
         aluno.cpf = cpf;
         cadastro.cadastrar(aluno);
     }
+    function removerAluno(cpf) {
+        cadastro.remover(cpf);
+    }
     function expectSoUmAluno() {
         expect(cadastro.getAlunos().length).toBe(1);
         var aluno = cadastro.getAlunos()[0];
@@ -32,6 +35,21 @@ describe("O cadastro de alunos", () => {
         cadastrarAluno("Pedro", "683");
         var aluno = expectSoUmAluno();
         expect(aluno.nome).toBe("Mariana");
+    });
+    it("não aceita cpf vazio", () => {
+        cadastrarAluno("Mariana", "");
+        expect(cadastro.getAlunos().length).toBe(0);
+    });
+    it("remoção de aluno com cpf inválido não altera alunos", () => {
+        cadastrarAluno("Mariana", "683");
+        let aluno = expectSoUmAluno();
+        expect(aluno.nome).toBe("Mariana");
+    });
+    it("Aluno é removido corretamente", () => {
+        cadastrarAluno("Mariana", "683");
+        expectSoUmAluno();
+        removerAluno("683");
+        expect(cadastro.getAlunos().length).toBe(0);
     });
 });
 //# sourceMappingURL=cadastrodealunos.spec.js.map
