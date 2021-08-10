@@ -9,12 +9,16 @@ import { AppComponent } from './components/app/app.component';
 import { AlunoService } from './services/aluno.service';
 import { MetasComponent } from './components/metas/metas.component';
 import { AlunosComponent } from './components/aluno/alunos.component';
+import { RoteirosComponent } from './components/roteiros/roteiroCreation/roteiros.component';
+import { LixeiraComponent } from './components/roteiros/lixeira/lixeira.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MetasComponent,
-    AlunosComponent
+    AlunosComponent,
+    RoteirosComponent,
+    LixeiraComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +33,14 @@ import { AlunosComponent } from './components/aluno/alunos.component';
       {
         path: 'alunos',
         component: AlunosComponent
+      },
+      {
+        path: 'roteiros',
+        component: RoteirosComponent,
+      },
+      {
+        path: 'roteiros/lixeira',
+        component: LixeiraComponent
       }
     ])
   ],
