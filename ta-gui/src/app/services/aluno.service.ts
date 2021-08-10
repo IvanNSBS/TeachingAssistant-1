@@ -39,7 +39,7 @@ export class AlunoService {
   }
 
   getAlunos(): Observable<Aluno[]> {
-    return this.http.get<Aluno[]>(this.taURL + "/alunos")
+    return this.http.get<Aluno[]>(this.taURL + "/aluno")
               .pipe(
                  retry(2)
                );

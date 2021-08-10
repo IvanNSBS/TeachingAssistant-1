@@ -1,4 +1,4 @@
-import { CadastroDeAlunos } from '../cadastrodealunos';
+import { CadastroDeAlunos } from '../routes/alunos/cadastrodealunos';
 import { Aluno } from '../../common/aluno';
 
 describe("O cadastro de alunos", () => {
