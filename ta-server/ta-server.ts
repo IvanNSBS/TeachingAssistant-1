@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import AlunosRouteController from './routes/alunos/alunosRouteController'
-import RoteirosPackageRouteController from 'routes/roteiros/roteirosPackageController';
+import RoteirosPackageRouteController from './routes/roteiros/roteirosPackageController';
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
