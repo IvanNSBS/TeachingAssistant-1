@@ -20,7 +20,8 @@ import { RoteiroCreatorComponent } from './components/roteiros/roteirocreator/ro
     MetasComponent,
     AlunosComponent,
     RoteirosComponent,
-    LixeiraComponent
+    LixeiraComponent,
+    RoteiroCreatorComponent
   ],
   imports: [
     BrowserModule,

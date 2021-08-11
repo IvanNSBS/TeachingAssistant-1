@@ -1,3 +1,27 @@
 <html>
     <h3>Criador de Roteiros</h3>
+    <tr>
+        <div>
+            <label>Titulo: </label>
+            <input [(ngModel)]="roteiro.titulo" name="titulobox">
+        </div>
+        <div>
+            <label>Meta Associada: </label>
+            <input type="text"/>
+        </div>
+        <div>
+            <label>Id: </label>
+            <input type="text"/>
+        </div>
+    </tr>
+    <tr>
+        <div>
+            <label>Questao 1: </label>
+            <input type="text"/>
+        </div>
+    </tr>
+    <span>
+        <a routerLink="/roteiros">Cancelar</a>
+        <button (click)=criarRoteiro()>Criar Roteiro</button>
+    </span>
 </html>
