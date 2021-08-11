@@ -12,6 +12,7 @@ import { AlunosComponent } from './components/aluno/alunos.component';
 import { RoteirosComponent } from './components/roteiros/roteiros/roteiros.component';
 import { LixeiraComponent } from './components/roteiros/lixeira/lixeira.component';
 import { RoteiroService } from './services/roteiros.service';
+import { RoteiroCreatorComponent } from './components/roteiros/roteirocreator/roteirocreator.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,10 @@ import { RoteiroService } from './services/roteiros.service';
       {
         path: 'roteiros/lixeira',
         component: LixeiraComponent
+      },
+      {
+        path: 'roteiros/criacao',
+        component: RoteiroCreatorComponent
       }
     ])
   ],
