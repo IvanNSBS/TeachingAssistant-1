@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import AlunosRouteController from './routes/alunos/alunosRouteController'
+import RoteirosPackageRouteController from 'routes/roteiros/roteirosPackageController';
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -14,6 +15,7 @@ taserver.use(allowCrossDomain);
 taserver.use(bodyParser.json());
 
 taserver.use('/aluno', AlunosRouteController)
+taserver.use('/roteiro', RoteirosPackageRouteController)
 
 var server = taserver.listen(3000, function () {
   console.log('Example app listening on port 3000!')
