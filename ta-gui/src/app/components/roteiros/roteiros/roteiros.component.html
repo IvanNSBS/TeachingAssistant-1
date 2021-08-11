@@ -3,26 +3,28 @@
     <a routerLink="/roteiros/criacao">Criar Roteiro</a>
 
     <table>
-        <tr *ngFor="let roteiro of roteiros" name="roteiroList">
+        <tr *ngFor="let roteiro of roteiros; let i = index" name="roteiroList">
             <span class="roteiro-titulo">
-                <button>Expandir</button>
+                <button (click)=toggleExpandir(roteiro.id)>Expandir</button>
                 <h2>Roteiro: {{roteiro.titulo}} </h2>
             </span>
-            <div>Meta Associada: {{roteiro.metaAssociada}} </div>
-            <div>Id: {{roteiro.id}}</div>
-            <div>
-                <ul>
-                    <li>Questão 1: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
-                    <li>Questao 2: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
-                    <li>Questao 2: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
-                    <li>Questao 2: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
-                </ul>
+            <div *ngIf="expandido[i]">
+                <div>Meta Associada: {{roteiro.metaAssociada}} </div>
+                <div>Id: {{roteiro.id}}</div>
+                <div>
+                    <ul>
+                        <li>Questão 1: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
+                        <li>Questao 2: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
+                        <li>Questao 2: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
+                        <li>Questao 2: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
+                    </ul>
+                </div>
+                <span>
+                    <!-- <td><button name="deleteRoteiroList" (click)=deletarRoteiro(a)>Deletar</button></td> -->
+                    <button>editar</button>
+                    <button>deletar</button>
+                </span>
             </div>
-            <span>
-                <!-- <td><button name="deleteRoteiroList" (click)=deletarRoteiro(a)>Deletar</button></td> -->
-                <button>editar</button>
-                <button>deletar</button>
-            </span>
         </tr>
     </table>
 </html>

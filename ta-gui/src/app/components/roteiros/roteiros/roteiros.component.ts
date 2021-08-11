@@ -10,13 +10,28 @@ import { Roteiro } from '../../../../../../common/src/roteiros/roteiro';
 export class RoteirosComponent implements OnInit
 {
   roteiros: Roteiro[] = [];
-
+  expandido: boolean[] = [];
+  
   constructor(private roteiroService: RoteiroService) {}
+
+  toggleExpandir(rotId: string): void{
+    let roteiroIndex = this.roteiros.findIndex(a => a.id == rotId);
+    if(roteiroIndex !== -1){
+      this.expandido[roteiroIndex] = !this.expandido[roteiroIndex];
+    }
+  }
 
   ngOnInit(): void {
     this.roteiroService.getRoteiros()
           .subscribe(
-            as => { this.roteiros = as; console.log("received roteiros: " + as) },
+            as => { 
+              this.roteiros = as; 
+              this.expandido = [];
+
+              this.roteiros.forEach(rot => {
+                this.expandido.push(false);
+              })
+            },
             msg => { alert(msg.message); }
           );
   }
