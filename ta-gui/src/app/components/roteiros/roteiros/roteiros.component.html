@@ -3,13 +3,13 @@
     <a routerLink="/roteiros/criacao">Criar Roteiro</a>
 
     <table>
-        <tr>
+        <tr *ngFor="let roteiro of roteiros" name="roteiroList">
             <span>
                 <button>expandir</button>
             </span>
-            <span>Roteiro: Software as a Service </span>
-            <div>Meta Associade: Software as a Service </div>
-            <div>Id: roteiro_software_service</div>
+            <span>Roteiro: {{roteiro.titulo}} </span>
+            <div>Meta Associada: {{roteiro.metaAssociada}} </div>
+            <div>Id: {{roteiro.id}}</div>
             <div>
                 <ul>
                     <li>Questão 1: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
@@ -18,7 +18,11 @@
                     <li>Questao 2: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
                 </ul>
             </div>
-            <button>editar</button>
+            <span>
+                <!-- <td><button name="deleteRoteiroList" (click)=deletarRoteiro(a)>Deletar</button></td> -->
+                <button>editar</button>
+                <button>deletar</button>
+            </span>
         </tr>
     </table>
 </html>
