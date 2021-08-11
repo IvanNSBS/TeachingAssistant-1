@@ -1,6 +1,6 @@
 import { Roteiro } from '../../../common/src/roteiros/roteiro';
 
-export class CadastroDeAlunos {
+export class CadastroDeRoteiros {
   roteiros: Roteiro[] = [];
 
   constructor(){
