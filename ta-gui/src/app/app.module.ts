@@ -11,6 +11,7 @@ import { MetasComponent } from './components/metas/metas.component';
 import { AlunosComponent } from './components/aluno/alunos.component';
 import { RoteirosComponent } from './components/roteiros/roteiros/roteiros.component';
 import { LixeiraComponent } from './components/roteiros/lixeira/lixeira.component';
+import { RoteiroService } from './services/roteiros.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { LixeiraComponent } from './components/roteiros/lixeira/lixeira.componen
       }
     ])
   ],
-  providers: [AlunoService],
+  providers: [AlunoService, RoteiroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

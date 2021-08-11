@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-// import { Aluno } from '../../../../../../common/aluno';
+import { RoteiroService } from 'src/app/services/roteiros.service';
+import { Roteiro } from '../../../../../../common/src/roteiros/roteiro';
 
 @Component({
    selector: 'app-root',
    templateUrl: './roteiros.component.html',
    styleUrls: ['./roteiros.component.css']
  })
-
 export class RoteirosComponent implements OnInit
 {
-//   constructor(private alunoService: AlunoService) {}
+  roteiros: Roteiro[] = [];
+
+  constructor(private roteiroService: RoteiroService) {}
 
   ngOnInit(): void {
-    // this.alunoService.getAlunos()
-    //       .subscribe(
-    //         as => { this.alunos = as; },
-    //         msg => { alert(msg.message); }
-    //       );
+    this.roteiroService.getRoteiros()
+          .subscribe(
+            as => { this.roteiros = as; console.log("received roteiros: " + as) },
+            msg => { alert(msg.message); }
+          );
   }
 }
