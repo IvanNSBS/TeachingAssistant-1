@@ -4,10 +4,10 @@
 
     <table>
         <tr *ngFor="let roteiro of roteiros" name="roteiroList">
-            <span>
-                <button>expandir</button>
+            <span class="roteiro-titulo">
+                <button>Expandir</button>
+                <h2>Roteiro: {{roteiro.titulo}} </h2>
             </span>
-            <span>Roteiro: {{roteiro.titulo}} </span>
             <div>Meta Associada: {{roteiro.metaAssociada}} </div>
             <div>Id: {{roteiro.id}}</div>
             <div>
