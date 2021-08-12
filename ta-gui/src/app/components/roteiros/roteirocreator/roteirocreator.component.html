@@ -7,11 +7,11 @@
         </div>
         <div>
             <label>Meta Associada: </label>
-            <input type="text"/>
+            <input [(ngModel)]="roteiro.metaAssociada" type="text"/>
         </div>
         <div>
-            <label>Id: </label>
-            <input type="text"/>
+            <label >Id: </label>
+            <input [(ngModel)]="roteiro.id" type="text"/>
         </div>
     </tr>
     <tr *ngFor="let questao of roteiro.questoes; let i = index">
