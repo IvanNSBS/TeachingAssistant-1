@@ -3,15 +3,10 @@ import { Roteiro } from '../../../common/src/roteiros/roteiro';
 export class CadastroDeRoteiros {
   roteiros: Roteiro[] = [];
 
-  constructor(){
-    for(let i = 0; i < 10; i++){
-      this.roteiros.push(new Roteiro(`roteiro_${i}`, `roteiro_${i}`, `meta_${i}`))
-    }
-  }
-
-  cadastrar(roteiros: Roteiro): Roteiro {
-    var result = null;
-    return result;
+  cadastrar(roteiro: Roteiro): Roteiro {
+    let isRoteiroValid: boolean = roteiro.id !== "" && roteiro.titulo !== "" && roteiro.metaAssociada !== "";
+    this.roteiros.push(roteiro)
+    return roteiro;
   }
 
   roteiroNaoCadastrado(id: string): boolean {

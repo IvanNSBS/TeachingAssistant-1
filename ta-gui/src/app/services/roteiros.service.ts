@@ -20,4 +20,12 @@ export class RoteiroService {
                );
   }
 
+  criar(roteiro: Roteiro): Observable<Roteiro | null> {
+    return this.http.post<any>(this.taURL + "/roteiro", roteiro, {headers: this.headers})
+             .pipe( 
+                retry(2),
+                map( res => {if (res.success) {return roteiro;} else {return null;}} )
+              ); 
+  }
+
 }

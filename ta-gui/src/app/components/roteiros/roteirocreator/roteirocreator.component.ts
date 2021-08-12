@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
+import { Router } from "@angular/router"
 import { RoteiroService } from 'src/app/services/roteiros.service';
 import { Questao } from '../../../../../../common/src/roteiros/questao';
 import { Roteiro } from '../../../../../../common/src/roteiros/roteiro';
@@ -15,7 +16,7 @@ export class RoteiroCreatorComponent
   conflitoNaCriacao: boolean = false;
   numberOfQuestions: number = 0;
 
-  constructor(private roteiroService: RoteiroService) {}
+  constructor(private roteiroService: RoteiroService, private router: Router) {}
 
   onMove(): void {
     this.conflitoNaCriacao = false;
@@ -29,20 +30,25 @@ export class RoteiroCreatorComponent
     this.roteiro.questoes.push(new Questao(""))
   }
 
-  criarRoteiro(): void{
-    if(this.roteiro !== undefined && this.roteiroEValido()){
-      let copiaRoteiro: Roteiro = this.clonaRoteiro();
-      this.roteiro = new Roteiro("", "", ""); 
-    }
-  }
-
+  criarRoteiro(): void {
+    this.roteiroService.criar(this.clonaRoteiro())
+          .subscribe(
+            roteiro => {
+              if (roteiro) {
+                this.roteiro = new Roteiro("", "", "");
+                this.router.navigateByUrl("/roteiros")
+              } 
+              else if(roteiro == null ){
+                this.conflitoNaCriacao = true;
+              } 
+            },
+            msg => { alert(msg.message); }
+          );
+  } 
+  
   clonaRoteiro(): Roteiro {
     let copiaRoteiro = new Roteiro(this.roteiro.id, this.roteiro.titulo, this.roteiro.metaAssociada);
     this.roteiro.questoes.forEach(q => copiaRoteiro.questoes.push(new Questao(q.enunciado)));
     return copiaRoteiro;
-  }
-
-  roteiroEValido(): boolean {
-    return this.roteiro.titulo !== "" && this.roteiro.metaAssociada !== "" && this.roteiro.id !== ""; 
   }
 }
