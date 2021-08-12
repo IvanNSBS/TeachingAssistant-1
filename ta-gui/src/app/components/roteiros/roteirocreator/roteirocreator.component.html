@@ -14,12 +14,16 @@
             <input type="text"/>
         </div>
     </tr>
-    <tr>
+    <tr *ngFor="let questao of questoes; let i = index">
         <div>
-            <label>Questao 1: </label>
-            <input type="text"/>
+            <label>Questao {{i+1}}</label>
+            <input type="text" [(ngModel)]=questao.enunciado/>
         </div>
+        <button (click)=removerQuestao(i)>Remover Questão</button>
     </tr>
+    <div>
+        <button (click)=adicionarQuestao()>Adicionar Questão</button>
+    </div>
     <span>
         <a routerLink="/roteiros">Cancelar</a>
         <button (click)=criarRoteiro()>Criar Roteiro</button>
