@@ -11,7 +11,7 @@ describe("O servidor", () => {
   afterAll(() => {server.closeServer()});
 
   it("inicialmente retorna uma lista de alunos vazia", () => {
-    return request.get(base_url + "alunos")
+    return request.get(base_url + "aluno")
             .then(body => 
                expect(body).toBe("[]")
              )
@@ -42,7 +42,7 @@ describe("O servidor", () => {
                 return request.post(base_url + "aluno", aluno2)
                          .then(body => {
                             expect(body).toEqual({failure: "O aluno não pode ser cadastrado"});
-                            return request.get(base_url + "alunos")
+                            return request.get(base_url + "aluno")
                                      .then(body => {
                                         expect(body).toContain(resposta1);
                                         expect(body).not.toContain(resposta2);
