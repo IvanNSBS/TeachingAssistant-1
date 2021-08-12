@@ -12,7 +12,6 @@ import { Roteiro } from '../../../../../../common/src/roteiros/roteiro';
 export class RoteiroCreatorComponent
 {
   roteiro: Roteiro = new Roteiro("", "", "");
-  questoes: Questao[] = []
   conflitoNaCriacao: boolean = false;
   numberOfQuestions: number = 0;
 
@@ -23,21 +22,24 @@ export class RoteiroCreatorComponent
   }
 
   removerQuestao(index: number) {
-    this.questoes.splice(index, 1);
+    this.roteiro.questoes.splice(index, 1);
   }
 
   adicionarQuestao(){
-    this.questoes.push(new Questao(""))
+    this.roteiro.questoes.push(new Questao(""))
   }
 
   criarRoteiro(): void{
     if(this.roteiro !== undefined && this.roteiroEValido()){
-      console.log("Titulo: " + this.roteiro.titulo)
-      console.log("Meta: " + this.roteiro.metaAssociada)
-      console.log("Id: " + this.roteiro.id)
-
-      this.questoes.forEach( a => console.log(a.enunciado));
+      let copiaRoteiro: Roteiro = this.clonaRoteiro();
+      this.roteiro = new Roteiro("", "", ""); 
     }
+  }
+
+  clonaRoteiro(): Roteiro {
+    let copiaRoteiro = new Roteiro(this.roteiro.id, this.roteiro.titulo, this.roteiro.metaAssociada);
+    this.roteiro.questoes.forEach(q => copiaRoteiro.questoes.push(new Questao(q.enunciado)));
+    return copiaRoteiro;
   }
 
   roteiroEValido(): boolean {

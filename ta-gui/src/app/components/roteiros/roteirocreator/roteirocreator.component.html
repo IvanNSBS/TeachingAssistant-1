@@ -14,7 +14,7 @@
             <input type="text"/>
         </div>
     </tr>
-    <tr *ngFor="let questao of questoes; let i = index">
+    <tr *ngFor="let questao of roteiro.questoes; let i = index">
         <div>
             <label>Questao {{i+1}}</label>
             <input type="text" [(ngModel)]=questao.enunciado/>
