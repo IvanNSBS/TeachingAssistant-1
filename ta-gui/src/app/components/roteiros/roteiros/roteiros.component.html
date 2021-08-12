@@ -12,11 +12,8 @@
                 <div>Meta Associada: {{roteiro.metaAssociada}} </div>
                 <div>Id: {{roteiro.id}}</div>
                 <div>
-                    <ul>
-                        <li>Questão 1: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
-                        <li>Questao 2: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
-                        <li>Questao 2: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
-                        <li>Questao 2: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum Lorem Ipsum</li>
+                    <ul *ngFor="let questao of roteiro.questoes; let j = index">
+                        <li>Questão {{j+1}}: {{questao.enunciado}}</li>
                     </ul>
                 </div>
                 <span>
