@@ -21,6 +21,7 @@ describe("O servidor na rota de lixeira", () => {
 
   it("Remove permanentemente um roteiro", () => {
     let roteiro = {"json":{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}};
+    let resposta1 = '{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}';
 
     return request.post(base_url + "roteiro", roteiro)
              .then(body => {
@@ -31,6 +32,11 @@ describe("O servidor na rota de lixeira", () => {
                       return request.delete(base_url + "roteiro/lixeira/saas")
                         .then(body => {
                             expect(body).toEqual('{"success":"Os roteiros foram deletados permanentemente"}');
+                                                                    
+                            return request.get(base_url + "roteiro/lixeira")
+                            .then(body => {
+                                expect(body).not.toContain(resposta1);
+                            })
                         })
                    })
              })
@@ -42,6 +48,9 @@ describe("O servidor na rota de lixeira", () => {
   it("Remove permanentemente mais de um roteiro", () => {
     let roteiro1 = {"json":{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}};
     let roteiro2 = {"json":{"id" : "saas2", "titulo": "SaaS2", "metaAssociada":"saas2"}};
+
+    let resposta1 = '{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}';
+    let resposta2 = '{"id" : "saas2", "titulo": "SaaS2", "metaAssociada":"saas2"}';
 
     return request.post(base_url + "roteiro", roteiro1)
              .then(body => {
@@ -60,6 +69,12 @@ describe("O servidor na rota de lixeira", () => {
                                 return request.delete(base_url + "roteiro/lixeira/saas,saas2")
                                     .then(body => {
                                         expect(body).toEqual('{"success":"Os roteiros foram deletados permanentemente"}')
+                                        
+                                        return request.get(base_url + "roteiro/lixeira")
+                                            .then(body => {
+                                                expect(body).not.toContain(resposta1);
+                                                expect(body).not.toContain(resposta2);
+                                            })
                                     })
                             })
                         })
