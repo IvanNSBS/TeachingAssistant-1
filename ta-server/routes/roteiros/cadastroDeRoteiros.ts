@@ -26,12 +26,15 @@ export class CadastroDeRoteiros {
     return result;
   }
 
-  remover(id: string): boolean {
+  remover(id: string): Roteiro | undefined {
     var previousSize: number = this.roteiros.length;    
-    this.roteiros = this.roteiros.filter(a => a.id != id)
-    var newSize: number = this.roteiros.length;
+
+    let deletedRoteiro = this.roteiros.find(a => a.id === id);
+    this.roteiros = this.roteiros.filter(a => a.id !== id)
     
-    return newSize != previousSize;
+    var newSize: number = this.roteiros.length;
+
+    return deletedRoteiro;
   }
 
   getRoteiros(): Roteiro[] {
