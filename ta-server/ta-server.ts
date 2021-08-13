@@ -11,7 +11,7 @@ var allowCrossDomain = function(req: any, res: any, next: any) {
     next();
 }
 
-var server: http.Server;
+var server: http.Server = undefined;
 var taserver: express.Application = express();
 taserver.use(allowCrossDomain);
 taserver.use(bodyParser.json());
@@ -19,15 +19,19 @@ taserver.use(bodyParser.json());
 taserver.use('/aluno', AlunosRouteController)
 taserver.use('/roteiro', RoteirosPackageRouteController)
 
+openServer()
 
 function openServer(): void{
-  server = taserver.listen(3000, function () {
-    console.log('Example app listening on port 3000!')
-  })
+  if(server === undefined){
+    server = taserver.listen(3000, function () {
+      console.log('Example app listening on port 3000!')
+    })
+  }
 }
 
 function closeServer(): void {
   server.close();
+  server = undefined;
 }
 
 export { server, closeServer, openServer }
