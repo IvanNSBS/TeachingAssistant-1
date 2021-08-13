@@ -8,18 +8,6 @@ export class LixeiraRoteiros {
     return roteiro;
   }
 
-  restaurarDaLixeira(roteiroId: string): Roteiro {
-    let roteiroIdx = this.roteiros.findIndex(rot => rot.id == roteiroId);
-    if(roteiroIdx !== -1){
-        let roteiro = this.roteiros[roteiroIdx];
-        this.roteiros.splice(roteiroIdx, 1);
-
-        return roteiro;
-    }
-
-    return undefined;
-  }
-
   deletarPermanentemente(roteiroIds: string[]): boolean {
     let filteredRoteiros = this.roteiros.filter(rot => !this.containsKey(roteiroIds, rot.id));
     if(filteredRoteiros.length == this.roteiros.length - roteiroIds.length){
@@ -28,6 +16,14 @@ export class LixeiraRoteiros {
     }
 
     return false;
+  }
+
+  restaurarRoteiros(roteiroIds: string[]): Roteiro[] {
+    let filtered = this.roteiros.filter(rot => !this.containsKey(roteiroIds, rot.id));
+    let removed = this.roteiros.filter(rot => this.containsKey(roteiroIds, rot.id));
+
+    this.roteiros = filtered;
+    return removed;
   }
 
   private containsKey(keyList: string[], key: string): boolean{

@@ -16,6 +16,12 @@ describe("A lixeira de roteiros", () => {
     return roteiro;
   }
 
+  function expectRoteiroToHaveThisData(roteiro: Roteiro, id: string, titulo: string, meta: string) {
+    expect(roteiro.id).toBe(id);
+    expect(roteiro.titulo).toBe(titulo);
+    expect(roteiro.metaAssociada).toBe(meta);
+  }
+
   beforeEach(() => lixeira = new LixeiraRoteiros())
 
   it("é inicialmente vazio", () => {
@@ -32,14 +38,12 @@ describe("A lixeira de roteiros", () => {
     expect(roteiro.questoes.length).toBe(0);
   })
 
-  it("restaura da lixeira corretamente", () => {
+  it("restaura um item da lixeira corretamente", () => {
     cadastrarRoteiro("saas_0", "Software As A Service", "Software As A Service");
 
-    let roteiro = lixeira.restaurarDaLixeira("saas_0");
-    expect(roteiro.id).toBe("saas_0");
-    expect(roteiro.titulo).toBe("Software As A Service");
-    expect(roteiro.metaAssociada).toBe("Software As A Service");
-    expect(roteiro.questoes.length).toBe(0);
+    let roteiro = lixeira.restaurarRoteiros(["saas_0"]);
+    expect(roteiro.length).toBe(1);
+    expectRoteiroToHaveThisData(roteiro[0], "saas_0", "Software As A Service", "Software As A Service")
+    expect(roteiro[0].questoes.length).toBe(0);
   })
-
 })
