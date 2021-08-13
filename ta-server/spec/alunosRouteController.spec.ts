@@ -1,14 +1,12 @@
 import request = require("request-promise");
-import { closeServer } from '../ta-server';
+import { closeServer, openServer } from '../ta-server';
 
 var base_url = "http://localhost:3000/";
 
 describe("O servidor", () => {
-  var server:any;
+  beforeAll(openServer);
 
-  beforeAll(() => {server = require('../ta-server')});
-
-  afterAll(() => {server.closeServer()});
+  afterAll(closeServer);
 
   it("inicialmente retorna uma lista de alunos vazia", () => {
     return request.get(base_url + "aluno")
