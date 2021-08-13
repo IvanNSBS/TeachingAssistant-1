@@ -6,13 +6,14 @@ describe("O cadastro de roteiros", () => {
 
   function cadastrarRoteiro(id:string, titulo:string, metaAssociada:string) {
     let roteiro = new Roteiro(id, titulo, metaAssociada);
-    cadastro.cadastrar(roteiro);
+    if(roteiro !== undefined)
+      cadastro.cadastrar(roteiro);
   }
 
   function expectSoUmRoteiro() {
     expect(cadastro.getRoteiros().length).toBe(1);
-    var aluno = cadastro.getRoteiros()[0];
-    return aluno;
+    var roteiro = cadastro.getRoteiros()[0];
+    return roteiro;
   }
 
   beforeEach(() => cadastro = new CadastroDeRoteiros())

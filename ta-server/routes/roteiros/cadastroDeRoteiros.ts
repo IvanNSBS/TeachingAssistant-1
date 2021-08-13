@@ -4,9 +4,14 @@ export class CadastroDeRoteiros {
   roteiros: Roteiro[] = [];
 
   cadastrar(roteiro: Roteiro): Roteiro {
-    let isRoteiroValid: boolean = roteiro.id !== "" && roteiro.titulo !== "" && roteiro.metaAssociada !== "";
-    this.roteiros.push(roteiro)
-    return roteiro;
+    let roteiroNaoRegistrado: boolean = !this.roteiros.find(rot => rot.id == roteiro.id);
+
+    if(roteiroNaoRegistrado){
+      this.roteiros.push(roteiro)
+      return roteiro;
+    }
+
+    return undefined;
   }
 
   roteiroNaoCadastrado(id: string): boolean {
