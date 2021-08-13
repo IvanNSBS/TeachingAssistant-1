@@ -42,7 +42,7 @@ export class LixeiraComponent implements OnInit
         roteiroIds.push(element.id);
     });
     
-    this.lixeiraService.deletarPermanentemente(roteiroIds).subscribe(
+    this.lixeiraService.restaurarRoteiros(roteiroIds).subscribe(
       as => { this.roteiros = this.roteiros.filter(roteiro => !this.containsKey(roteiroIds, roteiro.id)); },
       msg => { alert(msg.message); }
     );

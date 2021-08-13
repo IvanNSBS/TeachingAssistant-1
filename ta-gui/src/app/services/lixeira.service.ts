@@ -30,4 +30,15 @@ export class LixeiraService {
           return false;
         }))
   }
+
+  restaurarRoteiros(roteiroIds: string[]){
+    return this.http.post<any>(this.taURL + '/roteiro/lixeira/restaurar', roteiroIds, { headers: this.headers })
+      .pipe(
+        retry(2), 
+        map(res => { 
+          if(res.success) 
+            return true; 
+          return false;
+        }))
+  }
 }
