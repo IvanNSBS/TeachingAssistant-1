@@ -5,7 +5,7 @@ import { Roteiro } from '../../../../../../common/src/roteiros/roteiro';
 @Component({
    selector: 'app-root',
    templateUrl: './lixeira.component.html',
-   styleUrls: ['../roteiroCreator/roteiroCreator.component.css', '../roteiros/roteiros.component.css']
+   styleUrls: ['lixeira.component.css', '../../metas/metas.component.css']
  })
 export class LixeiraComponent implements OnInit
 {
