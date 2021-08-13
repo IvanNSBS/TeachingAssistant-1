@@ -21,7 +21,7 @@ describe("O servidor na rota de lixeira", () => {
 
   it("Remove permanentemente um roteiro", () => {
     let roteiro = {"json":{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}};
-    let resposta1 = '{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}';
+    let resposta1 = '{"id":"saas","titulo":"SaaS","metaAssociada":"saas"}';
 
     return request.post(base_url + "roteiro", roteiro)
              .then(body => {
@@ -49,8 +49,8 @@ describe("O servidor na rota de lixeira", () => {
     let roteiro1 = {"json":{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}};
     let roteiro2 = {"json":{"id" : "saas2", "titulo": "SaaS2", "metaAssociada":"saas2"}};
 
-    let resposta1 = '{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}';
-    let resposta2 = '{"id" : "saas2", "titulo": "SaaS2", "metaAssociada":"saas2"}';
+    let resposta1 = '{"id":"saas","titulo":"SaaS","metaAssociada":"saas"}';
+    let resposta2 = '{"id":"saas2","titulo":"SaaS2","metaAssociada":"saas2"}';
 
     return request.post(base_url + "roteiro", roteiro1)
              .then(body => {
