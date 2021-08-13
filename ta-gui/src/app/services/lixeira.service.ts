@@ -30,14 +30,4 @@ export class LixeiraService {
           return false;
         }))
   }
-
-  enviarParaLixeira(roteiroId: string): Observable<boolean>{
-    return this.http.delete<any>(this.taURL + `/roteiro/${roteiroId}`, { headers: this.headers })
-      .pipe(
-        retry(2), 
-        map(res => { 
-          if(res.success) return true; return false;
-        }))
-  }
-
 }
