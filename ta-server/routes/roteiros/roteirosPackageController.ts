@@ -7,6 +7,11 @@ let RoteirosPackageRouteController = express.Router();
 var cadastro: CadastroDeRoteiros = new CadastroDeRoteiros();
 var lixeira: LixeiraRoteiros = new LixeiraRoteiros();
 
+function resetServices(): void {
+  cadastro = new CadastroDeRoteiros();
+  lixeira = new LixeiraRoteiros();
+}
+
 RoteirosPackageRouteController.get('/', function (req: express.Request, res: express.Response) {
   res.send(JSON.stringify(cadastro.getRoteiros()));
 })
@@ -49,7 +54,22 @@ RoteirosPackageRouteController.delete("/lixeira/:idList", function(req: express.
   }
 })
 
+RoteirosPackageRouteController.post("/lixeira/restaurar", function(req: express.Request, res: express.Response) {
+  var idList: string[] = req.body;
+
+  let restored = lixeira.restaurarRoteiros(idList);
+  if (restored.length > 0) {
+    restored.forEach(rot => cadastro.cadastrar(rot))
+    res.send({"success":"Os roteiros foram restaurados com sucesso"});
+  } 
+  else {
+    res.send({"failure":"ID invalido para algum roteiro"});
+  }
+})
+
 RoteirosPackageRouteController.get("/lixeira", function(req: express.Request, res: express.Response) {
   res.send(JSON.stringify(lixeira.getRoteiros()));
 })
+
 export default RoteirosPackageRouteController;
+export { resetServices }
