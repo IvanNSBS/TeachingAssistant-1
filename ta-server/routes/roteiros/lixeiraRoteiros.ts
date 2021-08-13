@@ -20,6 +20,20 @@ export class LixeiraRoteiros {
     return undefined;
   }
 
+  deletarPermanentemente(roteiroIds: string[]): boolean {
+    let filteredRoteiros = this.roteiros.filter(rot => !this.containsKey(roteiroIds, rot.id));
+    if(filteredRoteiros.length == this.roteiros.length - roteiroIds.length){
+      this.roteiros = filteredRoteiros;
+      return true;
+    }
+
+    return false;
+  }
+
+  private containsKey(keyList: string[], key: string): boolean{
+    return keyList.findIndex(k => k == key) !== -1;
+  }
+
   getRoteiros(): Roteiro[] {
     return this.roteiros;
   }

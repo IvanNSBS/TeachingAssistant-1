@@ -36,6 +36,19 @@ RoteirosPackageRouteController.delete("/:id", function(req: express.Request, res
   }
 })
 
+RoteirosPackageRouteController.delete("/lixeira/:idList", function(req: express.Request, res: express.Response) {
+  var queryString:string = req.params.idList;
+  let idList = queryString.split(',');
+
+  let deleted = lixeira.deletarPermanentemente(idList);
+  if (deleted) {
+    res.send({"success":"Os roteiros foram deletados permanentemente"});
+  } 
+  else {
+    res.send({"failure":"ID invalido para algum roteiro"});
+  }
+})
+
 RoteirosPackageRouteController.get("/lixeira", function(req: express.Request, res: express.Response) {
   res.send(JSON.stringify(lixeira.getRoteiros()));
 })

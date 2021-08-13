@@ -22,6 +22,23 @@ export class LixeiraComponent implements OnInit
     console.log("slecionado..." + this.algoSelecionado)
   }
 
+  deletarPermanentemente(): void{
+    var roteiroIds: string[] = [];
+    this.roteiros.forEach((element, index) => {
+      if(this.selecionados[index]) 
+        roteiroIds.push(element.id);
+    });
+    
+    this.lixeiraService.deletarPermanentemente(roteiroIds).subscribe(
+      as => { this.roteiros = this.roteiros.filter(roteiro => !this.containsKey(roteiroIds, roteiro.id)); },
+      msg => { alert(msg.message); }
+    );
+  }
+
+  private containsKey(keyList: string[], key: string): boolean{
+    return keyList.findIndex(k => k == key) !== -1;
+  }
+
   ngOnInit(): void {
     this.lixeiraService.getRoteiros()
           .subscribe(
