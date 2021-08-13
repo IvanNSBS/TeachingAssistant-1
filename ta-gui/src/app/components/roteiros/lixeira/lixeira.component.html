@@ -1,3 +1,7 @@
 <html>
-    <a routerLink="/roteiros">Roteiros</a>
+    <tr *ngFor="let roteiro of roteiros">
+        <div>
+            Titulo: {{roteiro.titulo}}
+        </div>
+    </tr>
 </html>

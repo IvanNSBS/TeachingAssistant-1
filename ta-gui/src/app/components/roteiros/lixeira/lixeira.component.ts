@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-// import { Aluno } from '../../../../../../common/aluno';
+import { LixeiraService } from 'src/app/services/lixeira.service';
+import { Roteiro } from '../../../../../../common/src/roteiros/roteiro';
 
 @Component({
    selector: 'app-root',
@@ -8,13 +9,15 @@ import { Component, OnInit } from '@angular/core';
  })
 export class LixeiraComponent implements OnInit
 {
-//   constructor(private alunoService: AlunoService) {}
+  roteiros: Roteiro[] = [];
+
+  constructor(private lixeiraService: LixeiraService) {}
 
   ngOnInit(): void {
-    // this.alunoService.getAlunos()
-    //       .subscribe(
-    //         as => { this.alunos = as; },
-    //         msg => { alert(msg.message); }
-    //       );
+    this.lixeiraService.getRoteiros()
+          .subscribe(
+            as => { this.roteiros = as; },
+            msg => { alert(msg.message); }
+          );
   }
 }
