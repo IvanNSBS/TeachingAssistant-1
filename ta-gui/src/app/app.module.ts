@@ -13,6 +13,7 @@ import { RoteirosComponent } from './components/roteiros/roteiros/roteiros.compo
 import { LixeiraComponent } from './components/roteiros/lixeira/lixeira.component';
 import { RoteiroService } from './services/roteiros.service';
 import { RoteiroCreatorComponent } from './components/roteiros/roteirocreator/roteirocreator.component';
+import { LixeiraService } from './services/lixeira.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { RoteiroCreatorComponent } from './components/roteiros/roteirocreator/ro
       }
     ])
   ],
-  providers: [AlunoService, RoteiroService],
+  providers: [AlunoService, RoteiroService, LixeiraService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
