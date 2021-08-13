@@ -5,8 +5,10 @@ export class CadastroDeRoteiros {
 
   cadastrar(roteiro: Roteiro): Roteiro {
     let roteiroNaoRegistrado: boolean = !this.roteiros.find(rot => rot.id == roteiro.id);
+    let roteiroNaoPossuiCamposVazios: boolean = roteiro.id !== "" && roteiro.titulo !== "" && roteiro.metaAssociada !== ""; 
+    let roteiroEhValido = roteiroNaoRegistrado && roteiroNaoPossuiCamposVazios;
 
-    if(roteiroNaoRegistrado){
+    if(roteiroEhValido){
       this.roteiros.push(roteiro)
       return roteiro;
     }
