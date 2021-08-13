@@ -58,4 +58,12 @@ describe("A lixeira de roteiros", () => {
     expect(roteiro[0].questoes.length).toBe(0);
     expect(roteiro[1].questoes.length).toBe(0);
   })
+
+  it("Não restaura nada se ID for incorreto", () => {
+    cadastrarRoteiro("saas_0", "Software As A Service", "Software As A Service");
+
+    let roteiro = lixeira.restaurarRoteiros(["3", "saas_1"]);
+    expect(roteiro.length).toBe(0);
+    expect(lixeira.getRoteiros().length).toBe(1);
+  })
 })
