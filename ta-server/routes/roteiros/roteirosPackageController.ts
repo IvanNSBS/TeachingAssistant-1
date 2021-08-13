@@ -1,9 +1,11 @@
 import {CadastroDeRoteiros} from './cadastroDeRoteiros';
 import { Roteiro } from '../../../common/src/roteiros/roteiro';
 import * as express from 'express';
+import { LixeiraRoteiros } from './lixeiraRoteiros';
 
 let RoteirosPackageRouteController = express.Router();
 var cadastro: CadastroDeRoteiros = new CadastroDeRoteiros();
+var lixeira: LixeiraRoteiros = new LixeiraRoteiros();
 
 RoteirosPackageRouteController.get('/', function (req: express.Request, res: express.Response) {
   res.send(JSON.stringify(cadastro.getRoteiros()));
@@ -21,4 +23,7 @@ RoteirosPackageRouteController.post('/', function (req: express.Request, res: ex
   }
 })
 
+RoteirosPackageRouteController.get("/lixeira", function(req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(lixeira.getRoteiros()));
+})
 export default RoteirosPackageRouteController;
