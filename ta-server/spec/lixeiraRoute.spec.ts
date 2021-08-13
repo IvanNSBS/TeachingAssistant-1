@@ -1,3 +1,4 @@
+import { json } from "body-parser";
 import request = require("request-promise");
 import { closeServer, openServer } from '../ta-server';
 
@@ -17,4 +18,24 @@ describe("O servidor na rota de lixeira", () => {
                expect(e).toEqual(null)
              );
   })
+
+  it("Remove permanentemente um roteiro", () => {
+    let roteiro = {"json":{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}};
+
+    return request.post(base_url + "roteiro", roteiro)
+             .then(body => {
+                expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
+                return request.delete(base_url + "roteiro/saas")
+                   .then(body => {
+                      expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
+                      return request.delete(base_url + "roteiro/lixeira/saas")
+                        .then(body => {
+                            expect(body).toEqual('{"success":"Os roteiros foram deletados permanentemente"}');
+                        })
+                   })
+             })
+             .catch(err => {
+                expect(err).toEqual(null)
+             }); 
+  }) 
 })
