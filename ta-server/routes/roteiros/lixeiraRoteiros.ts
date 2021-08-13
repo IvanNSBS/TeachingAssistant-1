@@ -3,12 +3,6 @@ import { Roteiro } from '../../../common/src/roteiros/roteiro';
 export class LixeiraRoteiros {
   roteiros: Roteiro[] = [];
 
-  constructor(){
-    for(let i = 0; i < 10; i++){
-      this.roteiros.push(new Roteiro(i.toString(), i.toString(), i.toString()))
-    }
-  }
-
   enviarParaLixeira(roteiro: Roteiro): Roteiro {
     this.roteiros.push(roteiro)
     return roteiro;
