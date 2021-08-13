@@ -20,6 +20,13 @@ export class RoteirosComponent implements OnInit
       this.expandido[roteiroIndex] = !this.expandido[roteiroIndex];
     }
   }
+  
+  enviarParaLixeira(rotId: string): void{
+    this.roteiroService.enviarParaLixeira(rotId).subscribe(
+      as => { this.roteiros = this.roteiros.filter(roteiro => roteiro.id != rotId); },
+      msg => { alert(msg.message); }
+    );
+  }
 
   ngOnInit(): void {
     this.roteiroService.getRoteiros()

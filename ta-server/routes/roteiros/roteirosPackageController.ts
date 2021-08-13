@@ -23,6 +23,19 @@ RoteirosPackageRouteController.post('/', function (req: express.Request, res: ex
   }
 })
 
+RoteirosPackageRouteController.delete("/:id", function(req: express.Request, res: express.Response) {
+  var id = req.params.id;
+  let deleted = cadastro.remover(id);
+
+  if (deleted !== undefined) {
+    lixeira.enviarParaLixeira(deleted);
+    res.send({"success":"O roteiro foi enviado para a lixeira"});
+  } 
+  else {
+    res.send({"failure":"O roteiro nao pode ser enviado para a lixeira"});
+  }
+})
+
 RoteirosPackageRouteController.get("/lixeira", function(req: express.Request, res: express.Response) {
   res.send(JSON.stringify(lixeira.getRoteiros()));
 })
