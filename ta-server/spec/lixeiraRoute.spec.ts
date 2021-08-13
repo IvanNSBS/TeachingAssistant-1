@@ -69,4 +69,27 @@ describe("O servidor na rota de lixeira", () => {
                 expect(err).toEqual(null)
              }); 
   }) 
+
+  it("Restaura um roteiro", () => {
+    let roteiro = {"json":{"id" : "saasRestore", "titulo": "SaaS Restore", "metaAssociada":"saas"}};
+    let ids = {"json":["saasRestore"]}
+
+    return request.post(base_url + "roteiro", roteiro)
+             .then(body => {
+                expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
+
+                return request.delete(base_url + "roteiro/saasRestore")
+                   .then(body => {
+                      expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
+
+                      return request.post(base_url + "roteiro/lixeira/restaurar", ids)
+                        .then(body => {
+                            expect(body).toEqual({success:"Os roteiros foram restaurados com sucesso"});
+                        })
+                   })
+             })
+             .catch(err => {
+                expect(err).toEqual(null)
+             }); 
+  }) 
 })
