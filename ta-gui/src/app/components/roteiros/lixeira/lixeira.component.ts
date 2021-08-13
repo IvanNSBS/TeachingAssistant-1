@@ -43,7 +43,11 @@ export class LixeiraComponent implements OnInit
     });
     
     this.lixeiraService.restaurarRoteiros(roteiroIds).subscribe(
-      as => { this.roteiros = this.roteiros.filter(roteiro => !this.containsKey(roteiroIds, roteiro.id)); },
+      as => { 
+        this.roteiros = this.roteiros.filter(roteiro => !this.containsKey(roteiroIds, roteiro.id)); 
+        this.selecionados = []
+        this.roteiros.forEach(a => this.selecionados.push(false));
+      },
       msg => { alert(msg.message); }
     );
   }
