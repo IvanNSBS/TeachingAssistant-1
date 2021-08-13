@@ -1,7 +1,10 @@
 <html>
-    <tr *ngFor="let roteiro of roteiros">
-        <div>
-            Titulo: {{roteiro.titulo}}
-        </div>
+    <tr *ngFor="let roteiro of roteiros; let i = index">
+        <input type="checkbox" [(ngModel)]="selecionados[i]" (change)=algoFoiSelecionado()>
+        <label>Titulo: {{roteiro.titulo}}</label>
     </tr>
+    <div *ngIf="algoSelecionado">
+        <button>Deletar</button>
+        <button>Restaurar</button>
+    </div>
 </html>
