@@ -4,14 +4,17 @@
         <div>
             <label>Titulo: </label>
             <input [(ngModel)]="roteiro.titulo" name="titulobox">
+            <label class="error-message" *ngIf="camposVazios[0]">Este campo é obrigatório</label>
         </div>
         <div>
             <label>Meta Associada: </label>
             <input [(ngModel)]="roteiro.metaAssociada" type="text"/>
+            <label class="error-message" *ngIf="camposVazios[1]">Este campo é obrigatório</label>
         </div>
         <div>
             <label >Id: </label>
             <input [(ngModel)]="roteiro.id" type="text"/>
+            <label class="error-message" *ngIf="camposVazios[2]">Este campo é obrigatório</label>
         </div>
     </tr>
     <tr *ngFor="let questao of roteiro.questoes; let i = index">

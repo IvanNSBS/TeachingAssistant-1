@@ -2,6 +2,10 @@ tr {
     width: 30%;
 }
 
+.error-message{
+    color: red
+}
+
 div {
     height: 30px;
     width: 270px;
