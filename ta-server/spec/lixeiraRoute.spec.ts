@@ -41,7 +41,7 @@ describe("O servidor na rota de lixeira", () => {
                    })
              })
              .catch(err => {
-                expect(err).toEqual(null)
+                expect(err).toEqual(null);
              }); 
   }) 
 
@@ -56,19 +56,19 @@ describe("O servidor na rota de lixeira", () => {
              .then(body => {
                 expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
                 return request.post(base_url + "roteiro", roteiro2).then(body => {
-                    expect(expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"}))
+                    expect(expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"}));
                     
                     return request.delete(base_url + "roteiro/saas")
                         .then(body => {
-                            expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}')
+                            expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
                             
                             return request.delete(base_url + "roteiro/saas2")
                             .then(body => {
-                                expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}')
+                                expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
                               
                                 return request.delete(base_url + "roteiro/lixeira/saas,saas2")
                                     .then(body => {
-                                        expect(body).toEqual('{"success":"Os roteiros foram deletados permanentemente"}')
+                                        expect(body).toEqual('{"success":"Os roteiros foram deletados permanentemente"}');
                                         
                                         return request.get(base_url + "roteiro/lixeira")
                                             .then(body => {
@@ -105,11 +105,10 @@ describe("O servidor na rota de lixeira", () => {
                             
                             return request.get(base_url + "roteiro/lixeira")
                                 .then(body => {
-                                    expect(body).not.toContain(resposta);
+                                    expect(body).toEqual("[]");
 
                                     return request.get(base_url + "roteiro")
                                         .then(body => {
-                                            console.log("roteiros body: " + body)
                                             expect(body).toContain(resposta);
                                         })
                                 })
@@ -126,43 +125,40 @@ describe("O servidor na rota de lixeira", () => {
     let roteiro2 = {"json":{"id" : "saasRestore2", "titulo": "SaaS Restore2", "metaAssociada":"saas2"}};
     let ids = {"json":["saasRestore1", "saasRestore2"]}
 
-    let resposta = '{"id":"saasRestore1","titulo":"SaaS Restore","metaAssociada":"saas"}';
-    let resposta2 = '{"id":"saasRestore2","titulo":"SaaS Restore2","metaAssociada":"saas2"}';
+    let resposta = '{"id":"saasRestore1","titulo":"SaaS Restore","metaAssociada":"saas"},' +
+                   '{"id":"saasRestore2","titulo":"SaaS Restore2","metaAssociada":"saas2"}';
 
     return request.post(base_url + "roteiro", roteiro)
              .then(body => {
                 expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
 
-                request.post(base_url + "roteiro", roteiro2)
+                return request.post(base_url + "roteiro", roteiro2)
                   .then(body => {
-                    expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"})
+                    expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
 
-                    return request.delete(base_url + "roteiro/saasRestore2")
+                    return request.delete(base_url + "roteiro/saasRestore1")
                       .then(body => {
                         expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
 
-                        return request.delete(base_url + "roteiro/saasRestore1")
-                        .then(body => {
-                           expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
-     
-                           return request.post(base_url + "roteiro/lixeira/restaurar", ids)
-                             .then(body => {
-                                 expect(body).toEqual({success:"Os roteiros foram restaurados com sucesso"});
-                                 
-                                 return request.get(base_url + "roteiro/lixeira")
-                                     .then(body => {
-                                      expect(body).not.toContain(resposta);
-                                      expect(body).not.toContain(resposta2);
-     
-                                         return request.get(base_url + "roteiro")
-                                             .then(body => {
-                                                 console.log("roteiros body: " + body)
-                                                 expect(body).toContain(resposta);
-                                                 expect(body).toContain(resposta2);
-                                             })
-                                     })
-                             })
-                        })    
+                        return request.delete(base_url + "roteiro/saasRestore2")
+                          .then(body => {
+                            expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
+
+                            return request.post(base_url + "roteiro/lixeira/restaurar", ids)
+                              .then(body => {
+                                expect(body).toEqual({success:"Os roteiros foram restaurados com sucesso"});
+
+                                return(request.get(base_url + "roteiro/lixeira"))
+                                  .then(body => {
+                                    expect(body).toEqual("[]");
+
+                                    return request.get(base_url + "roteiro")
+                                      .then(body => {
+                                        expect(body).toContain(resposta);
+                                      })
+                                  })
+                              })
+                          })
                       })
                   })
              })
