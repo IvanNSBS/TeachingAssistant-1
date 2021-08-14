@@ -17,4 +17,22 @@ describe("O servidor na rota de roteiros", () => {
                expect(e).toEqual(null)
              );
   })
+
+  it("cria roteiro corretamente", () => {
+    let roteiro = {"json":{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}};
+    let resposta = '{"id":"saas","titulo":"SaaS","metaAssociada":"saas"}';
+
+    return request.post(base_url + "roteiro", roteiro)
+             .then(body => {
+                expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
+
+                return request.get(base_url + "roteiro")
+                  .then(body => {
+                    expect(body).toContain(resposta)
+                  })
+             })
+             .catch(err => {
+                expect(err).toEqual(null);
+             }); 
+  })
 })
