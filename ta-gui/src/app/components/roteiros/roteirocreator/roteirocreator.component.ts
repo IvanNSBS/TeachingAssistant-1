@@ -49,7 +49,8 @@ export class RoteiroCreatorComponent
                 this.router.navigateByUrl("/roteiros")
               } 
               else if(roteiro == null ){
-                alert("JÃ¡ existe um roteiro com este ID")
+                alert("Ja existe um roteiro com este ID ou na lixeira ou na lista de roteiros")
+
               } 
             },
             msg => { alert(msg.message); }

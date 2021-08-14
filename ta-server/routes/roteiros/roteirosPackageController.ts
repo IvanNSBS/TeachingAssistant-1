@@ -18,8 +18,11 @@ RoteirosPackageRouteController.get('/', function (req: express.Request, res: exp
 
 RoteirosPackageRouteController.post('/', function (req: express.Request, res: express.Response) {
   var roteiro: Roteiro = <Roteiro> req.body;
-  
-  roteiro = cadastro.cadastrar(roteiro);
+  if(lixeira.getRoteiros().findIndex(rot => rot.id === roteiro.id) !== -1)
+    roteiro = undefined;
+  else 
+    roteiro = cadastro.cadastrar(roteiro);
+
   if (roteiro) {
     res.send({"success": "O roteiro foi cadastrado com sucesso"});
   } 
