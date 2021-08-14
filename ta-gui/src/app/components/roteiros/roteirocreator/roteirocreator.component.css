@@ -2,15 +2,19 @@ tr {
     width: 30%;
 }
 
+.width-90{
+    width: 150px;
+}
+
 .error-message{
+    margin-left: 15px;
     color: red
 }
 
 div {
     height: 30px;
-    width: 270px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: start;
     padding-bottom: 10px;
 }
