@@ -74,4 +74,41 @@ describe("O servidor na rota de roteiros", () => {
                 expect(err).toEqual(null);
              }); 
   })
+
+it("nao cria roteiro se estiver na lixeira", () => {
+    let roteiro = {"json":{"id" : "delete_test", "titulo": "Gerencia de Projetos", "metaAssociada":"ger_proj"}};
+    let roteiro2 = {"json":{"id" : "delete_test", "titulo": "Gerencia de Projetos 2", "metaAssociada":"ger_proj2"}};
+    
+    let resposta = '{"id":"delete_test","titulo":"Gerencia de Projetos","metaAssociada":"ger_proj"}';
+    let resposta2 = '{"id":"delete_test","titulo":"Gerencia de Projetos 2","metaAssociada":"ger_proj2"}';
+
+    return request.post(base_url + "roteiro", roteiro)
+             .then(body => {
+                expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
+
+                return request.delete(base_url + "roteiro/delete_test")
+                  .then(body => {
+                    expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
+
+                    return request.post(base_url + "roteiro", roteiro2)
+                      .then(body => {
+                        expect(body).toEqual({failure: 'O roteiro não pode ser cadastrado'})
+    
+                        return request.get(base_url + "roteiro")
+                          .then(body => {
+                            expect(body).not.toContain(resposta);
+                            expect(body).not.toContain(resposta2);
+
+                            return request.get(base_url + "roteiro/lixeira")
+                              .then(body => {
+                                expect(body).toContain(resposta);
+                              })
+                          })
+                      })
+                  })
+             })
+             .catch(err => {
+                expect(err).toEqual(null);
+             }); 
+  })
 })
