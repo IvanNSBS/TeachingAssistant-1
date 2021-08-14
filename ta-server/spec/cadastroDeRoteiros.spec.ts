@@ -39,10 +39,14 @@ describe("O cadastro de roteiros", () => {
     var roteiro = expectSoUmRoteiro();
     expect(roteiro.id).toBe("saas_0");
     expect(roteiro.titulo).toBe("Software As A Service");
+    expect(roteiro.metaAssociada).toBe("Software As A Service");
   })
 
   it("não aceita os algum campo vazio", () => {
     cadastrarRoteiro("", "", "Software As A Service");
+    cadastrarRoteiro("", "Software as a Service", "");
+    cadastrarRoteiro("saas_0", "", "");
+    cadastrarRoteiro("", "", "");
     expect(cadastro.getRoteiros().length).toBe(0);
   })
 })
