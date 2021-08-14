@@ -62,4 +62,16 @@ describe("O servidor na rota de roteiros", () => {
                 expect(err).toEqual(null);
              }); 
   })
+
+  it("nao aceita roteiros invalido", () => {
+    let roteiro = {"json":{"id" : "ger_proj"}};
+
+    return request.post(base_url + "roteiro", roteiro)
+             .then(body => {
+                expect(body).toEqual({failure: 'O roteiro não pode ser cadastrado'});
+             })
+             .catch(err => {
+                expect(err).toEqual(null);
+             }); 
+  })
 })
