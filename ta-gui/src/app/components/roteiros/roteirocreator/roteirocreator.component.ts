@@ -13,13 +13,11 @@ import { Roteiro } from '../../../../../../common/src/roteiros/roteiro';
 export class RoteiroCreatorComponent
 {
   roteiro: Roteiro = new Roteiro("", "", "");
-  conflitoNaCriacao: boolean = false;
   numberOfQuestions: number = 0;
 
   constructor(private roteiroService: RoteiroService, private router: Router) {}
 
   onMove(): void {
-    this.conflitoNaCriacao = false;
   }
 
   removerQuestao(index: number) {
@@ -39,7 +37,7 @@ export class RoteiroCreatorComponent
                 this.router.navigateByUrl("/roteiros")
               } 
               else if(roteiro == null ){
-                this.conflitoNaCriacao = true;
+                alert("Já existe um roteiro com este ID")
               } 
             },
             msg => { alert(msg.message); }
