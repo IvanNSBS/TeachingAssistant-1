@@ -16,6 +16,10 @@ RoteirosPackageRouteController.get('/', function (req: express.Request, res: exp
   res.send(JSON.stringify(cadastro.getRoteiros()));
 })
 
+RoteirosPackageRouteController.get('/:id', function (req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(cadastro.getRoteiro(req.params.id)));
+})
+
 RoteirosPackageRouteController.post('/', function (req: express.Request, res: express.Response) {
   var roteiro: Roteiro = <Roteiro> req.body;
   if(lixeira.getRoteiros().findIndex(rot => rot.id === roteiro.id) !== -1)
@@ -73,6 +77,16 @@ RoteirosPackageRouteController.post("/lixeira/restaurar", function(req: express.
 RoteirosPackageRouteController.get("/lixeira", function(req: express.Request, res: express.Response) {
   res.send(JSON.stringify(lixeira.getRoteiros()));
 })
+
+RoteirosPackageRouteController.put('/', (req: express.Request, res: express.Response) => {
+  const roteiro: Roteiro = <Roteiro>req.body;
+
+  if (cadastro.atualizar(roteiro)) {
+    res.send({ 'success': 'O roteiro foi atualizado com sucesso' });
+  } else {
+    res.send({ 'failure': 'O roteiro não foi atualizado' });
+  }
+});
 
 export default RoteirosPackageRouteController;
 export { resetServices }

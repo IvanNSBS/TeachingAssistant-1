@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RoteiroService } from 'src/app/services/roteiros.service';
 import { Roteiro } from '../../../../../../common/src/roteiros/roteiro';
 
@@ -12,7 +13,7 @@ export class RoteirosComponent implements OnInit
   roteiros: Roteiro[] = [];
   expandido: boolean[] = [];
   
-  constructor(private roteiroService: RoteiroService) {}
+  constructor(private roteiroService: RoteiroService, private _route: ActivatedRoute, private _router: Router) {}
 
   toggleExpandir(rotId: string): void{
     let roteiroIndex = this.roteiros.findIndex(a => a.id == rotId);
@@ -26,6 +27,10 @@ export class RoteirosComponent implements OnInit
       as => { this.roteiros = this.roteiros.filter(roteiro => roteiro.id != rotId); },
       msg => { alert(msg.message); }
     );
+  }
+
+  atualizarRoteiro(rotId: string){
+    this._router.navigate(['roteiros/atualizar',rotId]);
   }
 
   ngOnInit(): void {

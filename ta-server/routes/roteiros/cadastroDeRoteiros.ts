@@ -23,6 +23,10 @@ export class CadastroDeRoteiros {
 
   atualizar(roteiro: Roteiro): Roteiro {
     var result: Roteiro = this.roteiros.find(a => a.id == roteiro.id);
+    //console.log(result);
+    if(result){
+      result = Object.assign(result,roteiro);
+    }
     return result;
   }
 
@@ -39,5 +43,9 @@ export class CadastroDeRoteiros {
 
   getRoteiros(): Roteiro[] {
     return this.roteiros;
+  }
+
+  getRoteiro(id: string){
+    return this.roteiros.find(a => a.id === id);
   }
 }

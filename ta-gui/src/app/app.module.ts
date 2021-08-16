@@ -14,7 +14,7 @@ import { LixeiraComponent } from './components/roteiros/lixeira/lixeira.componen
 import { RoteiroService } from './services/roteiros.service';
 import { RoteiroCreatorComponent } from './components/roteiros/roteirocreator/roteirocreator.component';
 import { LixeiraService } from './services/lixeira.service';
-
+import {RoteiroAtualizarComponent} from './components/roteiros/roteiroatualizar/roteiroatualizar.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +22,8 @@ import { LixeiraService } from './services/lixeira.service';
     AlunosComponent,
     RoteirosComponent,
     LixeiraComponent,
-    RoteiroCreatorComponent
+    RoteiroCreatorComponent,
+    RoteiroAtualizarComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +50,10 @@ import { LixeiraService } from './services/lixeira.service';
       {
         path: 'roteiros/criacao',
         component: RoteiroCreatorComponent
+      },
+      {
+        path: 'roteiros/atualizar/:id',
+        component: RoteiroAtualizarComponent
       }
     ])
   ],
