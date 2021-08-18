@@ -7,5 +7,15 @@ import { Turma } from "../../../../../common/src/turmas/turma"
  })
 export class CadastroNotas
 {
+    turma: Turma = new Turma();
 
+    cadastrarNotas(){
+        this.turma.notas.forEach((cpf: String, nota: String)=> {
+            console.log(`Cpf: ${cpf} | Nota: ${nota}}`)
+        })
+    }
+
+    ngOnInit(): void {
+        console.log(this.turma)
+    }
 }

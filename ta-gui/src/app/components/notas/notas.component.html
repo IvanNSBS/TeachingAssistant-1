@@ -1,3 +1,7 @@
 <html>
-
+    <div> {{turma.alunos.length}} </div>
+    <tr *ngFor="let aluno of turma.alunos">
+        <td>CPF: {{aluno.cpf}}</td>
+        <td>Nota: {{turma.notas[aluno.cpf]}}</td>
+    </tr>
 </html>
