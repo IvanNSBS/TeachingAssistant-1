@@ -23,6 +23,9 @@ export class LixeiraComponent implements OnInit
   }
 
   deletarPermanentemente(): void{
+    if(!confirm("Você quer mesmo deletar estes roteiros?"))
+      return;
+
     var roteiroIds: string[] = [];
     this.roteiros.forEach((element, index) => {
       if(this.selecionados[index]) 
@@ -36,6 +39,9 @@ export class LixeiraComponent implements OnInit
   }
 
   restaurarRoteiros(): void {
+    if(!confirm("Você quer mesmo restaurar estes roteiros?"))
+      return;
+
     var roteiroIds: string[] = [];
     this.roteiros.forEach((element, index) => {
       if(this.selecionados[index]) 
