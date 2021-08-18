@@ -75,6 +75,12 @@ export class LixeiraComponent implements OnInit
     this.roteiros = this.roteiros.filter(roteiro => !this.containsKey(roteiroIds, roteiro.id)); 
     this.selecionados = []
     this.roteiros.forEach(a => this.selecionados.push(false));
+
+    // if no roteiros left, deselect selectAll and somethingSelected
+    if(this.roteiros.length === 0){
+      this.alternarSelecaoSelecionado = false;
+      this.algoSelecionado = false;
+    }
   }
 
   private todosForamSelecionados(): boolean {
