@@ -23,7 +23,13 @@ export class RoteirosComponent implements OnInit
   
   enviarParaLixeira(rotId: string): void{
     this.roteiroService.enviarParaLixeira(rotId).subscribe(
-      as => { this.roteiros = this.roteiros.filter(roteiro => roteiro.id != rotId); },
+      as => { 
+        let index: number = this.roteiros.findIndex(roteiro => roteiro.id == rotId);
+        if(index !== -1){
+          this.roteiros = this.roteiros.filter((rot, i) => i !== index);
+          this.expandido = this.expandido.filter((exp, i) => i !== index);
+        }
+      },
       msg => { alert(msg.message); }
     );
   }
