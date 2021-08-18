@@ -44,8 +44,4 @@ export class CadastroDeRoteiros {
   getRoteiros(): Roteiro[] {
     return this.roteiros;
   }
-
-  /*getRoteiro(id: string){
-    return this.roteiros.find(a => a.id === id);
-  }*/
 }

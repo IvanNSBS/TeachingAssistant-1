@@ -16,6 +16,10 @@ RoteirosPackageRouteController.get('/', function (req: express.Request, res: exp
   res.send(JSON.stringify(cadastro.getRoteiros()));
 })
 
+RoteirosPackageRouteController.get('/:id', function (req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(cadastro.getRoteiros().find(a => a.id === req.params.id)));
+})
+
 RoteirosPackageRouteController.post('/', function (req: express.Request, res: express.Response) {
   var roteiro: Roteiro = <Roteiro> req.body;
   if(lixeira.getRoteiros().findIndex(rot => rot.id === roteiro.id) !== -1)
