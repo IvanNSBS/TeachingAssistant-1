@@ -39,17 +39,10 @@ export class LixeiraComponent implements OnInit
     if(!confirm("Você quer mesmo deletar estes roteiros?"))
       return;
 
-    var roteiroIds: string[] = [];
-    this.roteiros.forEach((element, index) => {
-      if(this.selecionados[index]) 
-        roteiroIds.push(element.id);
-    });
-    
+    var roteiroIds: string[] = this.getRoteiroIds();
     this.lixeiraService.deletarPermanentemente(roteiroIds).subscribe(
       as => { 
-        this.roteiros = this.roteiros.filter(roteiro => !this.containsKey(roteiroIds, roteiro.id)); 
-        this.selecionados = []
-        this.roteiros.forEach(a => this.selecionados.push(false));
+        this.filterRoteiros(roteiroIds);
       },
       msg => { alert(msg.message); }
     );
@@ -59,20 +52,29 @@ export class LixeiraComponent implements OnInit
     if(!confirm("Você quer mesmo restaurar estes roteiros?"))
       return;
 
+    var roteiroIds: string[] = this.getRoteiroIds();
+    this.lixeiraService.restaurarRoteiros(roteiroIds).subscribe(
+      as => { 
+        this.filterRoteiros(roteiroIds);
+      },
+      msg => { alert(msg.message); }
+    );
+  }
+
+  private getRoteiroIds(): string[] {
     var roteiroIds: string[] = [];
     this.roteiros.forEach((element, index) => {
       if(this.selecionados[index]) 
         roteiroIds.push(element.id);
     });
-    
-    this.lixeiraService.restaurarRoteiros(roteiroIds).subscribe(
-      as => { 
-        this.roteiros = this.roteiros.filter(roteiro => !this.containsKey(roteiroIds, roteiro.id)); 
-        this.selecionados = []
-        this.roteiros.forEach(a => this.selecionados.push(false));
-      },
-      msg => { alert(msg.message); }
-    );
+
+    return roteiroIds;
+  }
+
+  private filterRoteiros(roteiroIds: string[]){
+    this.roteiros = this.roteiros.filter(roteiro => !this.containsKey(roteiroIds, roteiro.id)); 
+    this.selecionados = []
+    this.roteiros.forEach(a => this.selecionados.push(false));
   }
 
   private todosForamSelecionados(): boolean {
