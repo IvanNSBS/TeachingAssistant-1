@@ -18,9 +18,6 @@ export class LixeiraComponent implements OnInit
 
   algoFoiSelecionado(): void{
     this.algoSelecionado = this.selecionados.filter(a => a === true).length > 0;
-
-    this.selecionados.forEach(a => "selecionado: " + a)
-    console.log("slecionado..." + this.algoSelecionado)
   }
 
   alternarTodaSelecao(event: Event){
