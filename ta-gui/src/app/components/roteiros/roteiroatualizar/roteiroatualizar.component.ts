@@ -52,8 +52,13 @@ export class RoteiroAtualizarComponent
     if(this.roteiro.id === "")
       this.camposVazios[2] = true;
 
-    if(this.camposVazios.findIndex(a => a) !== -1)
+    if(this.camposVazios.findIndex(a => a) !== -1){
       return;
+    }
+
+    if(!confirm("Deseja atualizar esse roteiro com as informações inseridas?")){
+      return;
+    }
 
     this.roteiroService.atualizar(this.clonaRoteiro()).subscribe(
       (a) => { 
@@ -67,22 +72,6 @@ export class RoteiroAtualizarComponent
       (msg) => { alert(msg.message); }
     );
   }
-
-  criarRoteiro(): void {
-    this.roteiroService.criar(this.clonaRoteiro())
-          .subscribe(
-            roteiro => {
-              if (roteiro) {
-                this.roteiro = new Roteiro("", "", "");
-                this.router.navigateByUrl("/roteiros")
-              } 
-              else if(roteiro == null ){
-                alert("Ja existe um roteiro com este ID ou na lixeira ou na lista de roteiros");
-              } 
-            },
-            msg => { alert(msg.message); }
-          );
-  } 
   
   clonaRoteiro(): Roteiro {
     let copiaRoteiro = new Roteiro(this.roteiro.id, this.roteiro.titulo, this.roteiro.metaAssociada);
