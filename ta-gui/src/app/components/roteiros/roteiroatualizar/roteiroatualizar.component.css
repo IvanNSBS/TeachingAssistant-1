@@ -2,6 +2,15 @@ tr {
     width: 30%;
 }
 
+.width-90{
+    width: 150px;
+}
+
+.error-message{
+    margin-left: 15px;
+    color: red
+}
+
 div {
     height: 30px;
     display: flex;
