@@ -74,5 +74,15 @@ RoteirosPackageRouteController.get("/lixeira", function(req: express.Request, re
   res.send(JSON.stringify(lixeira.getRoteiros()));
 })
 
+RoteirosPackageRouteController.put('/', (req: express.Request, res: express.Response) => {
+  const roteiro: Roteiro = <Roteiro>req.body;
+
+  if (cadastro.atualizar(roteiro)) {
+    res.send({ 'success': 'O roteiro foi atualizado com sucesso' });
+  } else {
+    res.send({ 'failure': 'O roteiro não foi atualizado' });
+  }
+});
+
 export default RoteirosPackageRouteController;
 export { resetServices }
