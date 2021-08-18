@@ -1,0 +1,31 @@
+<html>
+    <h3>Atualizar Roteiro</h3>
+    <tr>
+        <div>
+            <label class="width-90">Titulo: </label>
+            <input [(ngModel)]="roteiro.titulo" name="titulobox">
+        </div>
+        <div>
+            <label class="width-90">Meta Associada: </label>
+            <input [(ngModel)]="roteiro.metaAssociada" type="text"/>
+        </div>
+        <div>
+            <label class="width-90">Id: </label>
+            <input [readonly] = "true" [(ngModel)]="roteiro.id" type="text"/>
+        </div>
+    </tr>
+    <tr *ngFor="let questao of roteiro.questoes; let i = index">
+        <div>
+            <label>Questao {{i+1}}</label>
+            <input type="text" [(ngModel)]=questao.enunciado/>
+        </div>
+        <button (click)=removerQuestao(i)>Remover Questão</button>
+    </tr>
+    <div>
+        <button (click)=adicionarQuestao()>Adicionar Questão</button>
+    </div>
+    <span>
+        <a routerLink="/roteiros">Cancelar</a>
+        <button (click)=atualizarRoteiro()>Atualizar Roteiro</button>
+    </span>
+</html>

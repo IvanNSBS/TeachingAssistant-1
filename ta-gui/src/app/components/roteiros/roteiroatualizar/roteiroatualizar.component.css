@@ -1,0 +1,12 @@
+tr {
+    width: 30%;
+}
+
+
+div {
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    padding-bottom: 10px;
+}
