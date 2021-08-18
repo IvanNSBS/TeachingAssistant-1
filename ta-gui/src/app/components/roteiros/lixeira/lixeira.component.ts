@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { LixeiraService } from 'src/app/services/lixeira.service';
 import { Roteiro } from '../../../../../../common/src/roteiros/roteiro';
@@ -20,6 +21,16 @@ export class LixeiraComponent implements OnInit
 
     this.selecionados.forEach(a => "selecionado: " + a)
     console.log("slecionado..." + this.algoSelecionado)
+  }
+
+  alternarTodaSelecao(event: Event){
+    const isChecked = (<HTMLInputElement>event.target).checked;
+    let newSelecionados = [];
+    for(let i = 0; i < this.selecionados.length; i++)
+      newSelecionados.push(isChecked);
+    
+    this.selecionados = newSelecionados;
+    this.algoFoiSelecionado();
   }
 
   deletarPermanentemente(): void{
