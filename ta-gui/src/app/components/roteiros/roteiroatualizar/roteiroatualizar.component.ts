@@ -14,8 +14,13 @@ export class RoteiroAtualizarComponent
 {
   roteiro: Roteiro = new Roteiro("", "", "");
   numberOfQuestions: number = 0;
+  camposVazios: boolean[] = [false, false, false]
 
   constructor(private roteiroService: RoteiroService, private router: Router, private _route: ActivatedRoute) {}
+
+  onMove(): void {
+    this.camposVazios = [false, false, false];
+  }
 
   removerQuestao(index: number) {
     this.roteiro.questoes.splice(index, 1);
@@ -40,6 +45,16 @@ export class RoteiroAtualizarComponent
   }
 
   atualizarRoteiro(): void {
+    if(this.roteiro.titulo === "")
+      this.camposVazios[0] = true;
+    if(this.roteiro.metaAssociada === "")
+      this.camposVazios[1] = true;
+    if(this.roteiro.id === "")
+      this.camposVazios[2] = true;
+
+    if(this.camposVazios.findIndex(a => a) !== -1)
+      return;
+
     this.roteiroService.atualizar(this.clonaRoteiro()).subscribe(
       (a) => { 
         if (a == null) {
