@@ -22,6 +22,9 @@ export class RoteirosComponent implements OnInit
   }
   
   enviarParaLixeira(rotId: string): void{
+    if(!confirm("Quer mesmo enviar este roteiro para a lixeira?"))
+      return;
+
     this.roteiroService.enviarParaLixeira(rotId).subscribe(
       as => { 
         let index: number = this.roteiros.findIndex(roteiro => roteiro.id == rotId);
