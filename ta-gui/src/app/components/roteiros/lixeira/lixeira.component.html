@@ -11,7 +11,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td><div>Selecionar Tudo</div><input type="checkbox" (change)=alternarTodaSelecao($event)/></td>
+            <td><div>Selecionar Tudo</div><input [(ngModel)]="alternarSelecaoSelecionado" type="checkbox" (change)=alternarTodaSelecao($event)/></td>
         </tr>
         <tr *ngFor="let roteiro of roteiros; let i = index">
             <td>{{roteiro.titulo}}</td>

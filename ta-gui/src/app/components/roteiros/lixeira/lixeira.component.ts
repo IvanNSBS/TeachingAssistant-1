@@ -11,13 +11,18 @@ import { Roteiro } from '../../../../../../common/src/roteiros/roteiro';
 export class LixeiraComponent implements OnInit
 {
   roteiros: Roteiro[] = [];
-  selecionados: boolean[] = []
+  selecionados: boolean[] = [];
   algoSelecionado: boolean = false;
+  alternarSelecaoSelecionado: boolean = false;
 
   constructor(private lixeiraService: LixeiraService) {}
 
   algoFoiSelecionado(): void{
     this.algoSelecionado = this.selecionados.filter(a => a === true).length > 0;
+
+    // if not everything was selected, set selectAll toggle to false
+    if(!this.todosForamSelecionados())
+      this.alternarSelecaoSelecionado = false;
   }
 
   alternarTodaSelecao(event: Event){
@@ -64,6 +69,10 @@ export class LixeiraComponent implements OnInit
       },
       msg => { alert(msg.message); }
     );
+  }
+
+  private todosForamSelecionados(): boolean {
+    return this.selecionados.filter(a => a === true).length === this.roteiros.length;
   }
 
   private containsKey(keyList: string[], key: string): boolean{
