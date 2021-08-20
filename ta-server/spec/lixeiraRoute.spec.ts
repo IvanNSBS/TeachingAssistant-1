@@ -1,4 +1,5 @@
 import { json } from "body-parser";
+import { get } from "request-promise";
 import request = require("request-promise");
 import { closeServer, openServer } from '../ta-server';
 import { getRequest, postRequest, deleteRequest } from "./helpers";
@@ -11,6 +12,7 @@ let lixeiraUrl: string = base_url + "roteiro/lixeira/";
 let createRotSuccess = {success: "O roteiro foi cadastrado com sucesso"};
 let deleteRotSuccess = '{"success":"O roteiro foi enviado para a lixeira"}';
 let permaDelSuccess = '{"success":"Os roteiros foram deletados permanentemente"}';
+let restoreSuccess = {success:"Os roteiros foram restaurados com sucesso"};
 
 describe("O servidor na rota de lixeira", () => {
   beforeAll(openServer);
@@ -59,33 +61,12 @@ describe("O servidor na rota de lixeira", () => {
 
     let resposta = '{"id":"saasRestore","titulo":"SaaS Restore","metaAssociada":"saas"}';
 
-    return request.post(base_url + "roteiro", roteiro)
-             .then(body => {
-                expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
-
-                return request.delete(base_url + "roteiro/saasRestore")
-                   .then(body => {
-                      expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
-
-                      return request.post(base_url + "roteiro/lixeira/restaurar", ids)
-                        .then(body => {
-                            expect(body).toEqual({success:"Os roteiros foram restaurados com sucesso"});
-                            
-                            return request.get(base_url + "roteiro/lixeira")
-                                .then(body => {
-                                    expect(body).toEqual("[]");
-
-                                    return request.get(base_url + "roteiro")
-                                        .then(body => {
-                                            expect(body).toContain(resposta);
-                                        })
-                                })
-                        })
-                   })
-             })
-             .catch(err => {
-                expect(err).toEqual(null)
-             }); 
+    return postRequest(roteiroUrl, roteiro, body => expect(body).toEqual(createRotSuccess), 
+            () => deleteRequest(roteiroUrl+"saasRestore", body => expect(body).toEqual(deleteRotSuccess), 
+              () => postRequest(lixeiraUrl+"restaurar", ids, body => expect(body).toEqual(restoreSuccess), 
+                () => getRequest(lixeiraUrl, body => expect(body).toEqual("[]"), 
+                  () => getRequest(roteiroUrl, body => expect(body).toContain(resposta))))))
+      .catch(e => expect(e).toBe(null)) 
   }) 
 
   it("Restaura mais de um roteiro", () => {
