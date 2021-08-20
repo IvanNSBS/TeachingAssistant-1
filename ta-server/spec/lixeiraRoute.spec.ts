@@ -77,42 +77,13 @@ describe("O servidor na rota de lixeira", () => {
     let resposta = '{"id":"saasRestore1","titulo":"SaaS Restore","metaAssociada":"saas"},' +
                    '{"id":"saasRestore2","titulo":"SaaS Restore2","metaAssociada":"saas2"}';
 
-    return request.post(base_url + "roteiro", roteiro)
-             .then(body => {
-                expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
-
-                return request.post(base_url + "roteiro", roteiro2)
-                  .then(body => {
-                    expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
-
-                    return request.delete(base_url + "roteiro/saasRestore1")
-                      .then(body => {
-                        expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
-
-                        return request.delete(base_url + "roteiro/saasRestore2")
-                          .then(body => {
-                            expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
-
-                            return request.post(base_url + "roteiro/lixeira/restaurar", ids)
-                              .then(body => {
-                                expect(body).toEqual({success:"Os roteiros foram restaurados com sucesso"});
-
-                                return(request.get(base_url + "roteiro/lixeira"))
-                                  .then(body => {
-                                    expect(body).toEqual("[]");
-
-                                    return request.get(base_url + "roteiro")
-                                      .then(body => {
-                                        expect(body).toContain(resposta);
-                                      })
-                                  })
-                              })
-                          })
-                      })
-                  })
-             })
-             .catch(err => {
-                expect(err).toEqual(null)
-             }); 
+    return postRequest(roteiroUrl, roteiro, body => expect(body).toEqual(createRotSuccess), 
+            () => postRequest(roteiroUrl, roteiro2, body => expect(body).toEqual(createRotSuccess, 
+              () => deleteRequest(roteiroUrl+"saasRestore1", body => expect(body).toEqual(deleteRotSuccess), 
+                () => deleteRequest(roteiroUrl+"saasRestore2", body => expect(body).toEqual(deleteRotSuccess),  
+                  () => postRequest(lixeiraUrl+"restaurar", ids, body => expect(body).toEqual(restoreSuccess), 
+                    () => getRequest(lixeiraUrl, body => expect(body).toEqual("[]"), 
+                      () => getRequest(roteiroUrl, body => expect(body).toContain(resposta)))))))))
+            .catch(e => expect(e).toBe(null));
   }) 
 })
