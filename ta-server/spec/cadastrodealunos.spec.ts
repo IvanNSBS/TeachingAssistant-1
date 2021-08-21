@@ -45,11 +45,6 @@ describe("O cadastro de alunos", () => {
     expect(aluno.nome).toBe("Mariana");
   })
 
-  it("não aceita cpf vazio", () => {
-    cadastrarAluno("Mariana", "");
-    expect(cadastro.getAlunos().length).toBe(0);
-  })
-
   it("remoção de aluno com cpf inválido não altera alunos", () => {
     cadastrarAluno("Mariana", "683")
     let aluno = expectSoUmAluno();

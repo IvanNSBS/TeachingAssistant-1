@@ -18,16 +18,6 @@ describe("O servidor", () => {
              );
   })
 
-  it("só cadastra alunos", () => {
-    var options:any = {method: 'POST', uri: (base_url + "aluno"), body:{name: "Mari", cpf: "962"}, json: true};
-    return request(options)
-             .then(body =>
-                expect(body).toEqual({"failure": "O aluno não pode ser cadastrado"})
-             ).catch(e =>
-                expect(e).toEqual(null)
-             )
-  });
-
   it("não cadastra alunos com CPF duplicado", () => {
     var aluno1 = {"json":{"nome": "Mari", "cpf" : "965", "email":""}};
     var aluno2 = {"json":{"nome": "Pedro", "cpf" : "965", "email":""}};
