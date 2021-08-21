@@ -8,27 +8,27 @@
         </div>
         <div>
             <label class="width-90">Meta Associada: </label>
-            <input [(ngModel)]="roteiro.metaAssociada" type="text"/>
+            <input [(ngModel)]="roteiro.metaAssociada" name="metabox"/>
             <label class="error-message" *ngIf="camposVazios[1]">Este campo é obrigatório</label>
         </div>
         <div>
             <label class="width-90">Id: </label>
-            <input [(ngModel)]="roteiro.id" type="text"/>
+            <input [(ngModel)]="roteiro.id" name="idbox"/>
             <label class="error-message" *ngIf="camposVazios[2]">Este campo é obrigatório</label>
         </div>
     </tr>
     <tr *ngFor="let questao of roteiro.questoes; let i = index">
         <div>
             <label>Questao {{i+1}}</label>
-            <input type="text" [(ngModel)]=questao.enunciado/>
+            <input type="text" [(ngModel)]=questao.enunciado name="questaobox"/>
         </div>
-        <button (click)=removerQuestao(i)>Remover Questão</button>
+        <button (click)=removerQuestao(i) name="removeQuestionBtn">Remover Questão</button>
     </tr>
     <div>
-        <button (click)=adicionarQuestao()>Adicionar Questão</button>
+        <button (click)=adicionarQuestao() name="addQuestionBtn">Adicionar Questão</button>
     </div>
     <span>
-        <a routerLink="/roteiros">Cancelar</a>
-        <button (click)=criarRoteiro()>Criar Roteiro</button>
+        <a routerLink="/roteiros" name="cancelBtn">Cancelar</a>
+        <button (click)=criarRoteiro() name="createBtn">Criar Roteiro</button>
     </span>
 </html>
