@@ -2,17 +2,10 @@ import { json } from "body-parser";
 import { get } from "request-promise";
 import request = require("request-promise");
 import { closeServer, openServer } from '../ta-server';
-import { getRequest, postRequest, deleteRequest } from "./helpers";
+import { getRequest, postRequest, deleteRequest, urls, messages } from "./helpers";
 
 var base_url = "http://localhost:3000/";
 
-let roteiroUrl: string = base_url + "roteiro/";
-let lixeiraUrl: string = base_url + "roteiro/lixeira/";
-
-let createRotSuccess = {success: "O roteiro foi cadastrado com sucesso"};
-let deleteRotSuccess = '{"success":"O roteiro foi enviado para a lixeira"}';
-let permaDelSuccess = '{"success":"Os roteiros foram deletados permanentemente"}';
-let restoreSuccess = {success:"Os roteiros foram restaurados com sucesso"};
 
 describe("O servidor na rota de lixeira", () => {
   beforeAll(openServer);
@@ -29,10 +22,10 @@ describe("O servidor na rota de lixeira", () => {
     let roteiro = {"json":{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}};
     let resposta1 = '{"id":"saas","titulo":"SaaS","metaAssociada":"saas"}';
 
-    return postRequest(roteiroUrl, roteiro, body => expect(body).toEqual(createRotSuccess),
-            () => deleteRequest(roteiroUrl+"saas", body => expect(body).toEqual(deleteRotSuccess), 
-              () => deleteRequest(lixeiraUrl+"saas", body => expect(body).toEqual(permaDelSuccess), 
-                () => getRequest(lixeiraUrl,  body => expect(body).not.toContain(resposta1)))))
+    return postRequest(urls.roteiroUrl, roteiro, body => expect(body).toEqual(messages.createRotSuccess),
+            () => deleteRequest(urls.roteiroUrl+"saas", body => expect(body).toEqual(messages.deleteRotSuccess), 
+              () => deleteRequest(urls.lixeiraUrl+"saas", body => expect(body).toEqual(messages.permaDelSuccess), 
+                () => getRequest(urls.lixeiraUrl,  body => expect(body).not.toContain(resposta1)))))
             .catch(e => expect(e).toBe(null));
   }) 
 
@@ -43,12 +36,12 @@ describe("O servidor na rota de lixeira", () => {
     let resposta1 = '{"id":"saas","titulo":"SaaS","metaAssociada":"saas"}';
     let resposta2 = '{"id":"saas2","titulo":"SaaS2","metaAssociada":"saas2"}';
 
-    return postRequest(roteiroUrl, roteiro1, body => expect(body).toEqual(createRotSuccess),
-            () => postRequest(roteiroUrl, roteiro2, body => expect(body).toEqual(createRotSuccess),
-              () => deleteRequest(roteiroUrl+"saas", body => expect(body).toEqual(deleteRotSuccess),
-                () => deleteRequest(roteiroUrl+"saas2", body => expect(body).toEqual(deleteRotSuccess),
-                  () => deleteRequest(lixeiraUrl+ "saas,saas2", body => expect(body).toEqual(permaDelSuccess), 
-                    () => getRequest(lixeiraUrl, body => {
+    return postRequest(urls.roteiroUrl, roteiro1, body => expect(body).toEqual(messages.createRotSuccess),
+            () => postRequest(urls.roteiroUrl, roteiro2, body => expect(body).toEqual(messages.createRotSuccess),
+              () => deleteRequest(urls.roteiroUrl+"saas", body => expect(body).toEqual(messages.deleteRotSuccess),
+                () => deleteRequest(urls.roteiroUrl+"saas2", body => expect(body).toEqual(messages.deleteRotSuccess),
+                  () => deleteRequest(urls.lixeiraUrl+ "saas,saas2", body => expect(body).toEqual(messages.permaDelSuccess), 
+                    () => getRequest(urls.lixeiraUrl, body => {
                       expect(body).not.toContain(resposta1),
                       expect(body).not.toContain(resposta2);
                     }))))))
@@ -61,11 +54,11 @@ describe("O servidor na rota de lixeira", () => {
 
     let resposta = '{"id":"saasRestore","titulo":"SaaS Restore","metaAssociada":"saas"}';
 
-    return postRequest(roteiroUrl, roteiro, body => expect(body).toEqual(createRotSuccess), 
-            () => deleteRequest(roteiroUrl+"saasRestore", body => expect(body).toEqual(deleteRotSuccess), 
-              () => postRequest(lixeiraUrl+"restaurar", ids, body => expect(body).toEqual(restoreSuccess), 
-                () => getRequest(lixeiraUrl, body => expect(body).toEqual("[]"), 
-                  () => getRequest(roteiroUrl, body => expect(body).toContain(resposta))))))
+    return postRequest(urls.roteiroUrl, roteiro, body => expect(body).toEqual(messages.createRotSuccess), 
+            () => deleteRequest(urls.roteiroUrl+"saasRestore", body => expect(body).toEqual(messages.deleteRotSuccess), 
+              () => postRequest(urls.lixeiraUrl+"restaurar", ids, body => expect(body).toEqual(messages.restoreSuccess), 
+                () => getRequest(urls.lixeiraUrl, body => expect(body).toEqual("[]"), 
+                  () => getRequest(urls.roteiroUrl, body => expect(body).toContain(resposta))))))
       .catch(e => expect(e).toBe(null)) 
   }) 
 
@@ -77,13 +70,13 @@ describe("O servidor na rota de lixeira", () => {
     let resposta = '{"id":"saasRestore1","titulo":"SaaS Restore","metaAssociada":"saas"},' +
                    '{"id":"saasRestore2","titulo":"SaaS Restore2","metaAssociada":"saas2"}';
 
-    return postRequest(roteiroUrl, roteiro, body => expect(body).toEqual(createRotSuccess), 
-            () => postRequest(roteiroUrl, roteiro2, body => expect(body).toEqual(createRotSuccess, 
-              () => deleteRequest(roteiroUrl+"saasRestore1", body => expect(body).toEqual(deleteRotSuccess), 
-                () => deleteRequest(roteiroUrl+"saasRestore2", body => expect(body).toEqual(deleteRotSuccess),  
-                  () => postRequest(lixeiraUrl+"restaurar", ids, body => expect(body).toEqual(restoreSuccess), 
-                    () => getRequest(lixeiraUrl, body => expect(body).toEqual("[]"), 
-                      () => getRequest(roteiroUrl, body => expect(body).toContain(resposta)))))))))
+    return postRequest(urls.roteiroUrl, roteiro, body => expect(body).toEqual(messages.createRotSuccess), 
+            () => postRequest(urls.roteiroUrl, roteiro2, body => expect(body).toEqual(messages.createRotSuccess, 
+              () => deleteRequest(urls.roteiroUrl+"saasRestore1", body => expect(body).toEqual(messages.deleteRotSuccess), 
+                () => deleteRequest(urls.roteiroUrl+"saasRestore2", body => expect(body).toEqual(messages.deleteRotSuccess),  
+                  () => postRequest(urls.lixeiraUrl+"restaurar", ids, body => expect(body).toEqual(messages.restoreSuccess), 
+                    () => getRequest(urls.lixeiraUrl, body => expect(body).toEqual("[]"), 
+                      () => getRequest(urls.roteiroUrl, body => expect(body).toContain(resposta)))))))))
             .catch(e => expect(e).toBe(null));
   }) 
 })
