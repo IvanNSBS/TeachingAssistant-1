@@ -11,6 +11,7 @@ interface URLS {
 
 interface TestsMessages {
     readonly createRotSuccess: object;
+    readonly createRotFailure: object;
     readonly deleteRotSuccess: string;
     readonly permaDelSuccess: string;
     readonly restoreSuccess: object;
@@ -24,8 +25,9 @@ const urls: URLS = {
 
 const messages: TestsMessages = {
     createRotSuccess:   {success: "O roteiro foi cadastrado com sucesso"},
-    deleteRotSuccess:   '{"success":"O roteiro foi enviado para a lixeira"}',
-    permaDelSuccess :   '{"success":"Os roteiros foram deletados permanentemente"}',
+    createRotFailure:   {failure: 'O roteiro não pode ser cadastrado'},
+    deleteRotSuccess:  '{"success":"O roteiro foi enviado para a lixeira"}',
+    permaDelSuccess :  '{"success":"Os roteiros foram deletados permanentemente"}',
     restoreSuccess:     {success:"Os roteiros foram restaurados com sucesso"}
 }
 

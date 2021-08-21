@@ -1,7 +1,6 @@
 import request = require("request-promise");
 import { closeServer, openServer } from '../ta-server';
-
-var base_url = "http://localhost:3000/";
+import { postRequest, deleteRequest, getRequest, urls, messages } from "./helpers";
 
 describe("O servidor na rota de roteiros", () => {
   beforeAll(openServer);
@@ -9,31 +8,18 @@ describe("O servidor na rota de roteiros", () => {
   afterAll(closeServer);
 
   it("inicialmente retorna uma lista de roteiros vazia", () => {
-    return request.get(base_url + "roteiro")
-            .then(body => 
-               expect(body).toBe("[]")
-             )
-            .catch(e => 
-               expect(e).toEqual(null)
-             );
+
+    return getRequest(urls.roteiroUrl, body => expect(body).toBe("[]"))
+            .catch(e => expect(e).toEqual(null));
   })
 
   it("cria roteiro corretamente", () => {
     let roteiro = {"json":{"id" : "saas", "titulo": "SaaS", "metaAssociada":"saas"}};
     let resposta = '{"id":"saas","titulo":"SaaS","metaAssociada":"saas"}';
 
-    return request.post(base_url + "roteiro", roteiro)
-             .then(body => {
-                expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
-
-                return request.get(base_url + "roteiro")
-                  .then(body => {
-                    expect(body).toContain(resposta)
-                  })
-             })
-             .catch(err => {
-                expect(err).toEqual(null);
-             }); 
+    return postRequest(urls.roteiroUrl, roteiro, body => expect(body).toEqual(messages.createRotSuccess), 
+            () => getRequest(urls.roteiroUrl, body => expect(body).toContain(resposta)))
+              .catch(e => expect(e).toBe(null));
   })
 
   it("nao aceita roteiros duplicados", () => {
@@ -43,72 +29,37 @@ describe("O servidor na rota de roteiros", () => {
     let resposta = '{"id":"ger_proj","titulo":"Gerencia de Projetos","metaAssociada":"ger_proj"}';
     let resposta2 = '{"id":"ger_proj","titulo":"Gerencia de Projetos 2","metaAssociada":"ger_proj2"}';
 
-    return request.post(base_url + "roteiro", roteiro)
-             .then(body => {
-                expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
-
-                return request.post(base_url + "roteiro", roteiro2)
-                  .then(body => {
-                    expect(body).toEqual({failure: 'O roteiro não pode ser cadastrado'})
-
-                    return request.get(base_url + "roteiro")
-                    .then(body => {
-                      expect(body).toContain(resposta);
-                      expect(body).not.toContain(resposta2)
-                    })
-                  })
-             })
-             .catch(err => {
-                expect(err).toEqual(null);
-             }); 
+    return postRequest(urls.roteiroUrl, roteiro, body => expect(body).toEqual(messages.createRotSuccess), 
+            () => postRequest(urls.roteiroUrl, roteiro2, body => expect(body).toEqual(messages.createRotFailure), 
+              () => getRequest(urls.roteiroUrl, body => {
+                expect(body).toContain(resposta);
+                expect(body).not.toContain(resposta2);
+              })))
+              .catch(e => expect(e).toBe(null));
   })
 
   it("nao aceita roteiros invalido", () => {
     let roteiro = {"json":{"id" : "ger_proj"}};
 
-    return request.post(base_url + "roteiro", roteiro)
-             .then(body => {
-                expect(body).toEqual({failure: 'O roteiro não pode ser cadastrado'});
-             })
-             .catch(err => {
-                expect(err).toEqual(null);
-             }); 
+    return postRequest(urls.roteiroUrl, roteiro, body => expect(body).toEqual(messages.createRotFailure))
+            .catch(e => expect(e).toBe(null));
   })
 
-it("nao cria roteiro se estiver na lixeira", () => {
+  it("nao cria roteiro se estiver na lixeira", () => {
     let roteiro = {"json":{"id" : "delete_test", "titulo": "Gerencia de Projetos", "metaAssociada":"ger_proj"}};
     let roteiro2 = {"json":{"id" : "delete_test", "titulo": "Gerencia de Projetos 2", "metaAssociada":"ger_proj2"}};
     
     let resposta = '{"id":"delete_test","titulo":"Gerencia de Projetos","metaAssociada":"ger_proj"}';
     let resposta2 = '{"id":"delete_test","titulo":"Gerencia de Projetos 2","metaAssociada":"ger_proj2"}';
 
-    return request.post(base_url + "roteiro", roteiro)
-             .then(body => {
-                expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
-
-                return request.delete(base_url + "roteiro/delete_test")
-                  .then(body => {
-                    expect(body).toEqual('{"success":"O roteiro foi enviado para a lixeira"}');
-
-                    return request.post(base_url + "roteiro", roteiro2)
-                      .then(body => {
-                        expect(body).toEqual({failure: 'O roteiro não pode ser cadastrado'})
-    
-                        return request.get(base_url + "roteiro")
-                          .then(body => {
-                            expect(body).not.toContain(resposta);
-                            expect(body).not.toContain(resposta2);
-
-                            return request.get(base_url + "roteiro/lixeira")
-                              .then(body => {
-                                expect(body).toContain(resposta);
-                              })
-                          })
-                      })
-                  })
-             })
-             .catch(err => {
-                expect(err).toEqual(null);
-             }); 
+    return postRequest(urls.roteiroUrl, roteiro, body => expect(body).toEqual(messages.createRotSuccess), 
+            () => deleteRequest(urls.roteiroUrl + "delete_test", body => expect(body).toEqual(messages.deleteRotSuccess), 
+              () => postRequest(urls.roteiroUrl, roteiro2, body => expect(body).toEqual(messages.createRotFailure), 
+                () => getRequest(urls.roteiroUrl, body => {
+                  expect(body).not.toContain(resposta);
+                  expect(body).not.toContain(resposta2);
+                  }, 
+                  () => getRequest(urls.lixeiraUrl, body => expect(body).toContain(resposta))))))
+                  .catch(e => expect(e).toBe(null))
   })
 })
