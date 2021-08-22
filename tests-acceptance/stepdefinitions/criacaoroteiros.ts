@@ -48,6 +48,12 @@ defineSupportCode(function ({ Given, When, Then }) {
     })
 
     Given(/^I cannot see a roteiro named "([^\"]*)" with Id equal to "([^\"]*)"$/, async(titulo, id) => {
+        try{
+            let ale:Alert = browser.switchTo().alert();
+            await ale.accept();
+        }
+        catch(e){ 
+        }
         await assertElementsWithSameTituloAndId(0, titulo, id);
     })
 
