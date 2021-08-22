@@ -32,9 +32,11 @@ async function criarRoteiro(titulo, meta, id, questoes) {
     await $("input[name='idbox']").sendKeys(<string> id);
     
     if(questoes !== undefined){
-        questoes.forEach( q => {
-
-        });
+        for(let question of questoes){
+            await $("button[name='addQuestionBtn']").click();
+            var allQuestions : ElementArrayFinder = element.all(by.name('questaobox'));
+            await allQuestions.last().sendKeys(<string> question);
+        }
     }
 
     await element(by.buttonText('Criar Roteiro')).click();
