@@ -8,7 +8,7 @@
     <a routerLink="/metas">Metas</a>
     <a name="roteiros" routerLink="/roteiros">Roteiros</a>
     <div>
-      <span *ngIf="true">Faltam notas para cadastrar!</span>
+      <span *ngIf="missingNotas">Faltam notas para cadastrar!</span>
       <a routerLink="/notas">Cadastrar Notas</a>
     </div>
 </nav>
