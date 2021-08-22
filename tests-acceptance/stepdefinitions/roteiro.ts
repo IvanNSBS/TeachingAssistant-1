@@ -137,7 +137,3 @@ defineSupportCode(function ({ Given, When, Then }) {
         assert(browser.getCurrentUrl().then(text => expect(Promise.resolve(text)).to.eventually.equal("http://localhost:4200/roteiros/lixeira")))
     })
 })
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
