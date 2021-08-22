@@ -63,6 +63,7 @@ defineSupportCode(function ({ Given, When, Then }) {
     })
     
     Then(/^I can see the roteiro "([^\"]*)" with id "([^\"]*)" on the list at Roteiro page$/, async(titulo, id) => {
+        await browser.get("http://localhost:4200/roteiros");
         await assertElementsWithSameTituloAndId(1, titulo, id);
     })
 
@@ -101,7 +102,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         assert(browser.getCurrentUrl().then(text => expect(Promise.resolve(text)).to.eventually.equal("http://localhost:4200/roteiros/lixeira")))
     })
 
-    When(/^I select the roteiro with id "([^\"]*)"$/, async(id) => {
+    Then(/^I select the roteiro with id "([^\"]*)"$/, async(id) => {
         var allRoteiros : ElementArrayFinder = element.all(by.name('delList'));
         var sameId = allRoteiros.filter(elem => sameID(elem, id));
         await assertTamanhoEqual(sameId, 1);
@@ -114,6 +115,12 @@ defineSupportCode(function ({ Given, When, Then }) {
 		await ale.accept();
     })
 
+    When(/^I click on the Restore Button$/, async() => {
+        await $("button[name='restore']").click();
+		let ale:Alert = browser.switchTo().alert();
+		await ale.accept();
+    })
+
     Then(/^I can no longer see the roteiro with id "([^\"]*)"$/, async(id) => {
         assertElementsWithSameId(0, id);
     })
@@ -122,3 +129,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         assert(browser.getCurrentUrl().then(text => expect(Promise.resolve(text)).to.eventually.equal("http://localhost:4200/roteiros/lixeira")))
     })
 })
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
