@@ -1,7 +1,13 @@
 <html>
     <div> {{turma.alunos.length}} </div>
     <tr *ngFor="let aluno of turma.alunos">
-        <td>CPF: {{aluno.cpf}}</td>
-        <td>Nota: {{turma.notas[aluno.cpf]}}</td>
+        <span>
+            <td>CPF: {{aluno.cpf}}</td> 
+        </span>
+        <span>
+            <td>Nota: </td>
+            <input [(ngModel)]="turma.notas[aluno.cpf]"> 
+        </span>
     </tr>
+    <button (click)=cadastrarNotas()>Cadastrar</button>
 </html>

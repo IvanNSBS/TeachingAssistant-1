@@ -13,14 +13,14 @@ export class Turma {
     notas: Map<string, string> = new Map<string, string>();
 
     constructor(){
-        alunos_db.forEach( a => {
+        for(let a of alunos_db) {
             let aluno: Aluno = new Aluno();
             aluno.nome = a.nome;
             aluno.cpf = a.cpf;
             aluno.email = a.email
 
             this.alunos.push( aluno );
-            this.notas[a.cpf] = "";
-        })
+            this.notas[a.cpf] = ""; //`${a.cpf}_MA`;
+        }
     }
 }
