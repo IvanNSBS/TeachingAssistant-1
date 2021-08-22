@@ -1,5 +1,8 @@
+import { assert } from 'console';
 import { defineSupportCode } from 'cucumber';
 import { browser, $, element, ElementArrayFinder, by } from 'protractor';
+import { Alert } from 'selenium-webdriver';
+
 let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 
@@ -64,8 +67,39 @@ defineSupportCode(function ({ Given, When, Then }) {
         console.log("Wanted id: " + id);
         await assertElementsWithSameTituloAndId(1, titulo, id);
     })
-})
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
+
+
+
+
+    Given(/^I can see a roteiro with id "([^\"]*)"$/, async(id) => {
+        await $("a[name='creationBtn']").click();
+        await criarRoteiro(id, id, id, undefined);
+        await assertElementsWithSameTituloAndId(1, id, id);
+    })
+
+    When(/^I click on delete "([^\"]*)"/, async(id) => {
+        var allRoteiros : ElementArrayFinder = element.all(by.name('roteiroList'));
+        var sameId = allRoteiros.filter(elem => sameID(elem,id));
+        await assertTamanhoEqual(sameId, 1);
+        await sameId.all(by.name('deleteBtn')).first().click();
+		let ale:Alert = browser.switchTo().alert();
+		await ale.accept();
+    })
+
+    Then(/^I can no longer see roteiro "([^\"]*)" on the roteiro list$/, async(id) => {
+        assertElementsWithSameId(0, id)
+    })
+
+    Then(/^I am still at the roteiro page$/, async() => {
+        assert(browser.getCurrentUrl().then(text => expect(Promise.resolve(text)).to.eventually.equal("http://localhost:4200/roteiros")))
+    })
+    
+    When(/^I click on the Lixeira Button$/, async() => {
+        await $("a[name='lixeiraBtn']").click();
+    })
+
+    Then(/^I am Redirected to Lixeira Page$/, async() => {
+        assert(browser.getCurrentUrl().then(text => expect(Promise.resolve(text)).to.eventually.equal("http://localhost:4200/roteiros/lixeira")))
+    })
+})

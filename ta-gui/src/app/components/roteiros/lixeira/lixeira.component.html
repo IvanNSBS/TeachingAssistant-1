@@ -19,12 +19,12 @@
         <tr *ngFor="let roteiro of roteiros; let i = index">
             <td>{{roteiro.titulo}}</td>
             <td>{{roteiro.metaAssociada}}</td>
-            <td>{{roteiro.id}}</td>
+            <td name="idList" >{{roteiro.id}}</td>
             <td><input type="checkbox" [(ngModel)]="selecionados[i]" (change)=algoFoiSelecionado()></td>
         </tr>
     </table>
     <div *ngIf="algoSelecionado">
-        <button (click)=deletarPermanentemente()>Deletar</button>
-        <button (click)=restaurarRoteiros()>Restaurar</button>
+        <button name="permaDel" (click)=deletarPermanentemente()>Deletar</button>
+        <button name="retore" (click)=restaurarRoteiros()>Restaurar</button>
     </div>
 </html>
