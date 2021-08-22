@@ -21,7 +21,7 @@ export class NotasService {
   }
 
   postTurma(turma: Turma): Observable<Turma | null> {
-    return this.http.post<any>(this.taURL + "/turma", turma, {headers: this.headers})
+    return this.http.post<any>(this.taURL + "/notas", turma, {headers: this.headers})
              .pipe( 
                 retry(2),
                 map( res => {if (res.success) {return turma;} else {return null;}} )

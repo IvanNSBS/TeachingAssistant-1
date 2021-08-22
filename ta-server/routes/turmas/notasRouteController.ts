@@ -11,6 +11,7 @@ NotasRouteController.get('/', function (req: express.Request, res: express.Respo
 NotasRouteController.post('/', function (req: express.Request, res: express.Response) {
   var newTurma = <Turma>req.body; 
   turma = newTurma;
+  console.log(newTurma)
   res.send({"success": "Notas Cadastradas com sucesso"});
 })
 
