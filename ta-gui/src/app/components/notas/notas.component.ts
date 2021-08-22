@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { NotasService } from 'src/app/services/notas.service';
 import { Turma } from "../../../../../common/src/turmas/turma"
@@ -10,7 +11,7 @@ import { Turma } from "../../../../../common/src/turmas/turma"
 export class CadastroNotas implements OnInit
 {
     turma: Turma = new Turma();
-    constructor(private notaService: NotasService) {}
+    constructor(private notaService: NotasService, private router: Router) {}
 
     cadastrarNotas(): void {
         let filtered = this.turma.alunos.filter(a => this.turma.notas[a.cpf] === "");
@@ -27,6 +28,7 @@ export class CadastroNotas implements OnInit
         .subscribe(
             ar => {
                 alert("Cadastrado!")
+                this.router.navigateByUrl("/roteiros")
             },
             msg => { alert(msg.message); }
         );

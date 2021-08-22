@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
     this.notasService.getTurma()
     .subscribe(
       as => { 
-        console.log("alunos size: " + as.alunos.length)
         let filtered = as.alunos.filter(a => as.notas[a.cpf] === "");
         this.missingNotas = filtered.length > 0;
       },
