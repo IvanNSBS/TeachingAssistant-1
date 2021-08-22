@@ -16,11 +16,11 @@
                 <input [(ngModel)]="alternarSelecaoSelecionado" type="checkbox" (change)=alternarTodaSelecao($event)/>
             </td>
         </tr>
-        <tr *ngFor="let roteiro of roteiros; let i = index">
+        <tr name="delList" *ngFor="let roteiro of roteiros; let i = index">
             <td>{{roteiro.titulo}}</td>
             <td>{{roteiro.metaAssociada}}</td>
-            <td name="idList" >{{roteiro.id}}</td>
-            <td><input type="checkbox" [(ngModel)]="selecionados[i]" (change)=algoFoiSelecionado()></td>
+            <td name="idList">{{roteiro.id}}</td>
+            <td><input name="selectList" type="checkbox" [(ngModel)]="selecionados[i]" (change)=algoFoiSelecionado()></td>
         </tr>
     </table>
     <div *ngIf="algoSelecionado">
