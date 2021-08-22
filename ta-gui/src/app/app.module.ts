@@ -15,6 +15,7 @@ import { RoteiroService } from './services/roteiros.service';
 import { RoteiroCreatorComponent } from './components/roteiros/roteirocreator/roteirocreator.component';
 import { LixeiraService } from './services/lixeira.service';
 import { CadastroNotas } from './components/notas/notas.component';
+import { NotasService } from './services/notas.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { CadastroNotas } from './components/notas/notas.component';
       }
     ])
   ],
-  providers: [AlunoService, RoteiroService, LixeiraService],
+  providers: [AlunoService, RoteiroService, LixeiraService, NotasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

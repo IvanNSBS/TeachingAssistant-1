@@ -6,7 +6,7 @@ import { Turma } from "../../../../../common/src/turmas/turma"
    templateUrl: './notas.component.html',
    styleUrls: ['notas.component.css']
  })
-export class CadastroNotas
+export class CadastroNotas implements OnInit
 {
     turma: Turma = new Turma();
 
