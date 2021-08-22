@@ -5,12 +5,12 @@
     <table>
         <tr *ngFor="let roteiro of roteiros; let i = index" name="roteiroList">
             <span class="roteiro-titulo">
-                <button (click)=toggleExpandir(roteiro.id)>Expandir</button>
-                <h2>Roteiro: {{roteiro.titulo}} </h2>
+                <button name="expandirList" (click)=toggleExpandir(roteiro.id)>Expandir</button>
+                <h2><span>Roteiro: </span><span name="tituloList">{{roteiro.titulo}}</span></h2>
             </span>
             <div *ngIf="expandido[i]">
-                <div>Meta Associada: {{roteiro.metaAssociada}} </div>
-                <div>Id: {{roteiro.id}}</div>
+                <div><span>Meta Associada: </span><span name="metaList">{{roteiro.metaAssociada}}</span></div>
+                <div><span>Id:</span> <span name="idList">{{roteiro.id}}</span></div>
                 <div>
                     <ul *ngFor="let questao of roteiro.questoes; let j = index">
                         <li>Questão {{j+1}}: {{questao.enunciado}}</li>

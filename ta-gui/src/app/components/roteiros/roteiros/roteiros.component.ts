@@ -45,7 +45,7 @@ export class RoteirosComponent implements OnInit
               this.expandido = [];
 
               this.roteiros.forEach(rot => {
-                this.expandido.push(false);
+                this.expandido.push(true);
               })
             },
             msg => { alert(msg.message); }
