@@ -14,6 +14,7 @@ import { LixeiraComponent } from './components/roteiros/lixeira/lixeira.componen
 import { RoteiroService } from './services/roteiros.service';
 import { RoteiroCreatorComponent } from './components/roteiros/roteirocreator/roteirocreator.component';
 import { LixeiraService } from './services/lixeira.service';
+import { CadastroNotas } from './components/notas/notas.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LixeiraService } from './services/lixeira.service';
     AlunosComponent,
     RoteirosComponent,
     LixeiraComponent,
-    RoteiroCreatorComponent
+    RoteiroCreatorComponent,
+    CadastroNotas
   ],
   imports: [
     BrowserModule,
@@ -49,6 +51,10 @@ import { LixeiraService } from './services/lixeira.service';
       {
         path: 'roteiros/criacao',
         component: RoteiroCreatorComponent
+      },
+      {
+        path: 'notas',
+        component: CadastroNotas
       }
     ])
   ],
