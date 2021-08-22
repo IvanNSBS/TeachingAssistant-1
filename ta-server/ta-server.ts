@@ -3,6 +3,7 @@ import * as bodyParser from 'body-parser';
 import * as http from 'http';
 import AlunosRouteController from './routes/alunos/alunosRouteController'
 import RoteirosPackageRouteController, { resetServices } from './routes/roteiros/roteirosPackageController';
+import NotasRouteController from './routes/turmas/notasRouteController';
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -18,6 +19,7 @@ taserver.use(bodyParser.json());
 
 taserver.use('/aluno', AlunosRouteController)
 taserver.use('/roteiro', RoteirosPackageRouteController)
+taserver.use('/notas', NotasRouteController)
 
 openServer()
 
