@@ -107,6 +107,7 @@ defineSupportCode(function ({ Given, When, Then }) {
     })
 
     Then(/^I can see a roteiro with the titulo "([^\"]*)" and id "([^\"]*)" in the roteiros list$/, async(name,id) =>{
+        await browser.get("http://localhost:4200/roteiros");
         await element(by.name("roteiroList"));
         await assertElementsWithSameTituloAndId(1, name, id);
     });
