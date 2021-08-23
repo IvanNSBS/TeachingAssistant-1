@@ -20,6 +20,13 @@ export class RoteiroService {
                );
   }
 
+  getRoteiro(roteiroId: string | null): Observable<Roteiro> {
+    return this.http.get<Roteiro>(this.taURL + `/roteiro/${roteiroId}`)
+              .pipe(
+                 retry(2)
+               );
+  }
+
   criar(roteiro: Roteiro): Observable<Roteiro | null> {
     return this.http.post<any>(this.taURL + "/roteiro", roteiro, {headers: this.headers})
              .pipe( 
@@ -35,6 +42,14 @@ export class RoteiroService {
         map(res => { 
           if(res.success) return true; return false;
         }))
+  }
+
+  atualizar(roteiro: Roteiro): Observable<Roteiro | null> {
+    return this.http.put<any>(this.taURL + "/roteiro", JSON.stringify(roteiro), { headers: this.headers })
+      .pipe(
+        retry(2),
+        map(res => { if (res.success) { return roteiro; } else { return null; } })
+      );
   }
 
 }

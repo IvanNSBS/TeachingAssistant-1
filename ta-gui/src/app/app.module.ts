@@ -16,7 +16,7 @@ import { RoteiroCreatorComponent } from './components/roteiros/roteirocreator/ro
 import { LixeiraService } from './services/lixeira.service';
 import { CadastroNotas } from './components/notas/notas.component';
 import { NotasService } from './services/notas.service';
-
+import {RoteiroAtualizarComponent} from './components/roteiros/roteiroatualizar/roteiroatualizar.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +25,8 @@ import { NotasService } from './services/notas.service';
     RoteirosComponent,
     LixeiraComponent,
     RoteiroCreatorComponent,
-    CadastroNotas
+    CadastroNotas,
+    RoteiroAtualizarComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +57,10 @@ import { NotasService } from './services/notas.service';
       {
         path: 'notas',
         component: CadastroNotas
+      },
+      {
+        path: 'roteiros/atualizar/:id',
+        component: RoteiroAtualizarComponent
       }
     ])
   ],

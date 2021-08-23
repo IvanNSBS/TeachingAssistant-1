@@ -26,6 +26,19 @@ async function assertElementsWithSameId(n, id) {
     await assertTamanhoEqual(sameIds,n); 
 }
 
+async function updateRoteiroT(newText){
+    await $("input[name='titulobox']").clear();
+    await $("input[name='titulobox']").sendKeys(<string> newText);
+    await element(by.name('updateBttn')).click();
+}
+
+async function updateRoteiroAddQ(newText){
+    await $("button[name='addQ']").click();
+    var allQuestions: ElementArrayFinder = element.all(by.name('enun'));
+    await allQuestions.last().sendKeys(<string>newText);
+    await element(by.name('updateBttn')).click();
+}
+
 async function criarRoteiro(titulo, meta, id, questoes) {
     await $("input[name='titulobox']").sendKeys(<string> titulo);
     await $("input[name='metabox']").sendKeys(<string> meta);
@@ -40,6 +53,10 @@ async function criarRoteiro(titulo, meta, id, questoes) {
     }
 
     await element(by.buttonText('Criar Roteiro')).click();
+}
+
+function blank(){
+    return;
 }
 
 defineSupportCode(function ({ Given, When, Then }) {
@@ -69,14 +86,56 @@ defineSupportCode(function ({ Given, When, Then }) {
         let questoes = [question1, question2];
         await criarRoteiro(titulo, meta, id, questoes);
     })
+
+    Then(/^I select the edit button of the roteiro with id "([^\"]*)"$/,async(id)=>{
+        var allRoteiros : ElementArrayFinder = element.all(by.name('roteiroList'));
+        var sameId = allRoteiros.filter(elem => sameID(elem,id));
+        await sameId.all(by.name('editBttn')).first().click();
+    });
+
+    When(/^I try to update the name of the roteiro with "([^\"]*)"$/, async (name) => {
+        await updateRoteiroT(name);
+    });
     
     Then(/^I can see the roteiro "([^\"]*)" with id "([^\"]*)" on the list at Roteiro page$/, async(titulo, id) => {
         await browser.get("http://localhost:4200/roteiros");
         await assertElementsWithSameTituloAndId(1, titulo, id);
     })
 
+    Then(/^I confirm my changes$/, async()=>{
+        try {
+            let ale:Alert = browser.switchTo().alert();
+            await ale.accept();            
+        } catch (e) {            
+        }
+    })
 
+    Then(/^I can see a roteiro with the titulo "([^\"]*)" and id "([^\"]*)" in the roteiros list$/, async(name,id) =>{
+        await element(by.name("roteiroList"));
+        await assertElementsWithSameTituloAndId(1, name, id);
+    });
 
+    Given(/^I can see a roteiro with ID "([^\"]*)" in the roteiros list$/,async(id) =>{
+        await assertElementsWithSameId(1,id);
+    })
+
+    Then(/^I am still at the update roteiros page$/,async()=>{
+        assert(browser.getCurrentUrl().then(text => expect(Promise.resolve(text)).to.eventually.equal("http://localhost:4200/roteiros/atualizar/test")))
+    })
+
+    Then(/^I am at the update roteiros page$/,async()=>{
+        assert(browser.getCurrentUrl().then(text => expect(Promise.resolve(text)).to.eventually.equal("http://localhost:4200/roteiros/atualizar/test")))
+    })
+
+    When(/^I try to update the roteiro adding the question: "([^\"]*)"$/,async(text)=>{
+        await updateRoteiroAddQ(text);
+    })
+
+    Then(/^I can see a roteiro with id "([^\"]*)" with question "([^\"]*)" in the roteiros list$/, async(id,enun)=>{
+        var allRoteiros : ElementArrayFinder = element.all(by.name('roteiroList'));
+        var sameId = allRoteiros.filter(elem => sameID(elem,id));
+        assert(sameId.all(by.name('enun')).last().getText().then(text => expect(Promise.resolve(text)).to.eventually.equal(enun)).catch(element));
+    })
 
 
     Given(/^I can see a roteiro with id "([^\"]*)"$/, async(id) => {
@@ -89,9 +148,9 @@ defineSupportCode(function ({ Given, When, Then }) {
         var allRoteiros : ElementArrayFinder = element.all(by.name('roteiroList'));
         var sameId = allRoteiros.filter(elem => sameID(elem,id));
         await assertTamanhoEqual(sameId, 1);
-        await sameId.all(by.name('deleteBtn')).first().click();
-		let ale:Alert = browser.switchTo().alert();
-		await ale.accept();
+        await sameId.all(by.name('deleteBtn')).first().click();        
+        let ale:Alert = browser.switchTo().alert();
+        await ale.accept();
     })
 
     Then(/^I can no longer see roteiro "([^\"]*)" on the roteiro list$/, async(id) => {

@@ -1,0 +1,34 @@
+<html (mousemove)="onMove()">
+    <h3>Atualizar Roteiro</h3>
+    <tr>
+        <div>
+            <label class="width-90">Titulo: </label>
+            <input [(ngModel)]="roteiro.titulo" name="titulobox">
+            <label class="error-message" *ngIf="camposVazios[0]">Este campo é obrigatório</label>
+        </div>
+        <div>
+            <label class="width-90">Meta Associada: </label>
+            <input [(ngModel)]="roteiro.metaAssociada" type="text" name="metabox"/>
+            <label class="error-message" *ngIf="camposVazios[1]">Este campo é obrigatório</label>
+        </div>
+        <div>
+            <label class="width-90">Id: </label>
+            <input [readonly] = "true" [(ngModel)]="roteiro.id" type="text" name="idbox"/>
+            <label class="error-message" *ngIf="camposVazios[2]">Este campo é obrigatório</label>
+        </div>
+    </tr>
+    <tr *ngFor="let questao of roteiro.questoes; let i = index">
+        <div>
+            <label>Questao {{i+1}}</label>
+            <input name="enun"type="text" [(ngModel)]=questao.enunciado/>
+        </div>
+        <button name="remQ"(click)=removerQuestao(i)>Remover Questão</button>
+    </tr>
+    <div>
+        <button name="addQ"(click)=adicionarQuestao()>Adicionar Questão</button>
+    </div>
+    <span>
+        <a routerLink="/roteiros">Cancelar</a>
+        <button name="updateBttn"(click)=atualizarRoteiro()>Atualizar Roteiro</button>
+    </span>
+</html>
