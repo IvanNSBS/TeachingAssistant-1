@@ -55,10 +55,6 @@ async function criarRoteiro(titulo, meta, id, questoes) {
     await element(by.buttonText('Criar Roteiro')).click();
 }
 
-function blank(){
-    return;
-}
-
 defineSupportCode(function ({ Given, When, Then }) {
     Given(/^I am at the roteiros page$/, async () => {
         await browser.get("http://localhost:4200/");
